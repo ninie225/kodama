@@ -4,21 +4,20 @@
 
 {% block body %}
 
-    <div class="row">
-        <div class="accueil container-fluid text-center">
-            {% include 'navbar.html.twig' %}
+<div class="accueil d-flex flex-column">
 
-            <div class="row mt-5 items-center justify-content-center text-white">
-                <h1 class="mt-5">BIENVENUE CHEZ KODAMA'S KITCHEN</h1>
-                <p class="mt-4">un voyage culinaire magique inspiré des mondes de Ghibli</p>
-                <btn class="btn rounded-5 bg-white pb-2 mt-4 col-1">Voir nos catégories</btn>
-            </div>
-        </div>
+    {% include 'navbar.html.twig' %}
 
-        <div class="accueil2 container text-center ">
-
-        </div>
-
+    <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center text-white px-3">
+        <h1 class="display-4 display-md-3">BIENVENUE CHEZ <br>KODAMA'S KITCHEN</h1>
+        <p class="lead my-3">Un voyage culinaire magique inspiré des mondes de Ghibli</p>
+        <button class="btn btn-light rounded-5 py-2 px-4 mt-4">Voir nos catégories</button>
     </div>
+
+</div>
+
+<div class="accueil2">
+
+</div>
 
 {% endblock %}
