@@ -1,0 +1,43 @@
+/* Style pour la page de la carte */
+
+.carte{
+    background-image: url("../images/uploads/carte/carte.jpg");
+    height: 100vh;
+    opacity: 0.9;
+}
+
+/* Style des boutons de catégorie */
+.btn-category {
+    background-color: none;
+    border: 2px solid #442B19;
+    color: white;
+    transition: all 0.3s;
+}
+
+.btn-category.active {
+    background-color: #92b7d1;
+    color: #442B19;
+}
+
+/* Style des cartes de plats */
+.card {
+    background-color: #ffffff2d;
+    border: 2px solid #ffffff;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    color: #92b7d1;
+    text-shadow: 3px 2px 5px #000000;
+}

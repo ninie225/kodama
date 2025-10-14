@@ -13,36 +13,4 @@ body {
     color: #442B19 !important;
 }
 
-.accueil, .accueil2 {
-    background-image: url("../images/uploads/accueil.png");
-    opacity: 0.9;
-    background-size: cover;        
-    background-position: center;    
-    background-repeat: no-repeat;   
-    width: 100%;                 
-    height: 100vh;  
-    display: flex;
-    flex-direction: column;
-}
 
-.accueil2 {
-    height: 100vh; /* si tu veux plein écran aussi */
-}
-
-.accueil button:hover {
-    color: #442B19 !important;
-}
-
-/* Responsive : réduire le titre sur petits écrans */
-@media (max-width: 768px) {
-    .accueil h1 {
-        font-size: 2rem; /* titre plus petit sur mobile */
-    }
-    .accueil p.lead {
-        font-size: 1rem;
-    }
-    .accueil button {
-        font-size: 0.9rem;
-        padding: 0.5rem 1rem;
-    }
-}

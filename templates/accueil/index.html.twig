@@ -1,23 +1,194 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Kodama's Kitchen{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/accueil.css') }}">
+{% endblock %}
+
 {% block body %}
-
-<div class="accueil d-flex flex-column">
-
-    {% include 'navbar.html.twig' %}
-
-    <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center text-white px-3">
-        <h1 class="display-4 display-md-3">BIENVENUE CHEZ <br>KODAMA'S KITCHEN</h1>
-        <p class="lead my-3">Un voyage culinaire magique inspiré des mondes de Ghibli</p>
-        <button class="btn btn-light rounded-5 py-2 px-4 mt-4">Voir nos catégories</button>
+    <div class="accueil1 d-flex flex-column">
+        {% include 'navbar.html.twig' %}
+        <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center text-white px-3">
+            <h1 class="display-3 display-md-3">BIENVENUE CHEZ <br>KODAMA'S KITCHEN</h1>
+            <p class="h5 typewriter my-3">Un voyage culinaire magique inspiré des mondes de Ghibli</p>
+            <a href="{{ path('app_carte') }}" class="btn btn-light rounded-2 py-2 px-4 mt-4">Voir notre carte</a>
+        </div>
     </div>
 
-</div>
+    <div class="accueil2">
+        <h3 class="display-md-3 fw-bold">QUI EST LE CHEF MIYAZAKI ?</h3>
+        <div class="card rounded-5 overflow-hidden content-card">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ asset('images/uploads/accueil/miyazakiCard.png') }}" class="w-100 h-100" alt="Photo de Miyazaki">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body p-4 d-flex align-items-center h-100">
+                        <div class="w-100">
+                            <p class="card-text">
+                                Pour le chef Miyazaki, cuisiner, c'est raconter une histoire. Chaque recette est pensée comme un film, où textures et arômes évoquent des souvenirs, des émotions et des voyages imaginaires au cœur des univers du Studio Ghibli.
+                            </p>
+                            <h5 class="card-title mb-0 fw-bold">Hayao Miyazaki</h5>
+                            <p class="card-text mt-0"><small>Chef cuisinier</small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="accueil2">
+    <div class="accueil3 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5 d-flex flex-column p-5 text-white">
+                    <h2 class="display-md-2 fw-bold shadow-text">1985</h2>
+                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Kodama's Kitchen est fondé.</p>
+                    <p class="fw-bold shadow-text">Hayao Miyazaki et Isao Takahata fondent officiellement le Studio Ghibli à Tokyo.</p>
+                </div>
+                <div class="col-md-7 p-5">
+                    <img src="{{ asset('images/uploads/accueil/accueil3-Miyazaki.jpg') }}" class="img-fluid rounded-4 shadow" alt="Photo de Miyazaki et Takahata">
+                </div>
+            </div>
+        </div>
+    </div>
 
-</div>
+    <div class="accueil4 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5 d-flex flex-column p-5 text-white">
+                    <h2 class="display-md-2 fw-bold shadow-text">1986</h2>
+                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Ouverture du premier restaurant : le Château dans le ciel</p>
+                    <p class="fw-bold shadow-text">La première sortie officielle de Ghibli a donné le ton pour des décennies de plats imaginatifs.</p>
+                </div>
+                <div class="col-md-7 p-5">
+                    <img src="{{ asset('images/uploads/accueil/accueil4-castle.jpg') }}" class="img-fluid rounded-4 shadow" alt="Photo du Château dans le ciel">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accueil5 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5 d-flex flex-column p-5 text-white">
+                    <h2 class="display-md-2 fw-bold shadow-text">1988</h2>
+                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Sortie de Mon voisin Totoro</p>
+                    <p class="fw-bold shadow-text">Totoro est devenu un icône culturel et la mascotte du restaurant.</p>
+                </div>
+                <div class="col-md-7 p-5">
+                    <img src="{{ asset('images/uploads/accueil/accueil5-totoro.jpg') }}" class="img-fluid rounded-4 shadow" alt="Photo de Totoro">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accueil6 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5 d-flex flex-column p-5 text-white">
+                    <h2 class="display-md-2 fw-bold shadow-text">2001</h2>
+                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Ouverture de Kodama's Kitchen</p>
+                    <p class="fw-bold shadow-text">Le restaurant Ghibli le plus iconique avec ses 4 étoiles Michelin.</p>
+                </div>
+                <div class="col-md-7 p-5">
+                    <img src="{{ asset('images/uploads/accueil/accueil6-restaurant.jpg') }}" class="img-fluid rounded-4 shadow" alt="Photo du restaurant">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accueil7 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5 d-flex flex-column p-5 text-white">
+                    <h2 class="display-md-2 fw-bold shadow-text">2004</h2>
+                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Le château dans le ciel sort</p>
+                    <p class="fw-bold shadow-text">Un chef-d'œuvre de fantasy steampunk qui a consolidé la renommée internationale de Ghibli.</p>
+                </div>
+                <div class="col-md-7 p-5">
+                    <img src="{{ asset('images/uploads/accueil/accueil7-castle.jpg') }}" class="img-fluid rounded-4 shadow" alt="Photo du Château dans le ciel">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accueil8 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5 d-flex flex-column p-5 text-white">
+                    <h2 class="display-md-2 fw-bold shadow-text">2008</h2>
+                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Ponyo éclabousse la scène</p>
+                    <p class="fw-bold shadow-text">Inspiré de la petite sirène, ce restaurant a charmé les convives avec ses beaux plats.</p>
+                </div>
+                <div class="col-md-7 p-5">
+                    <img src="{{ asset('images/uploads/accueil/accueil8-ponyo.webp') }}" class="img-fluid rounded-4 shadow" alt="Photo de Ponyo">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="accueil9 d-flex align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-5 d-flex flex-column p-5 text-white">
+                    <h2 class="display-md-2 fw-bold shadow-text">2020</h2>
+                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Les restaurants Ghibli dans le monde entier</p>
+                    <p class="fw-bold shadow-text">La franchise Studio Ghibli est disponible dans plusieurs pays.</p>
+                </div>
+                <div class="col-md-7 p-5">
+                    <img src="{{ asset('images/uploads/accueil/accueil9-studio.jpg') }}" class="img-fluid rounded-4 shadow" alt="Photo du studio Ghibli">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener("load", () => {
+        const card = document.querySelector(".accueil2 .card");
+        const title = document.querySelector(".accueil2 h3");
+        if (!card || !title) return;
+
+        // Animation d'apparition
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    card.classList.add("animate-card");
+                    observer.unobserve(title);
+                }
+            });
+        }, { threshold: 0.5 });
+        observer.observe(title);
+
+        // Ajout de la classe allow-3d après l'animation
+        card.addEventListener("animationend", () => {
+            card.classList.add("allow-3d");
+        });
+
+        // Effet 3D au survol
+        const maxRotation = 10;
+
+        card.addEventListener("mousemove", (e) => {
+            if (!card.classList.contains("allow-3d")) return;
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotationY = ((x - centerX) / centerX) * maxRotation;
+            const rotationX = ((y - centerY) / centerY) * maxRotation;
+            card.style.transition = "transform 0.1s ease-out";
+            card.style.transform = `translate(-50%, -50%) rotateY(${rotationY}deg) rotateX(${rotationX}deg) scale(1.05)`;
+        });
+
+        // Retour à la position initiale
+        card.addEventListener("mouseleave", () => {
+            if (!card.classList.contains("allow-3d")) return;
+            card.style.transition = "transform 0.5s ease-out !important";
+            card.style.transform = "translate(-50%, -50%) rotateY(0) rotateX(0) scale(1) !important";
+        });
+    });
+
+    </script>
 
 {% endblock %}
