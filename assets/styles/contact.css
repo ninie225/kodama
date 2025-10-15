@@ -1,0 +1,43 @@
+/* Style pour le formulaire de contact */
+
+.contact-page{
+    background-image: url("../images/uploads/contact/contact.jpg");
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    opacity: 0.9;
+}
+
+.contact-form .form-control {
+    background-color: transparent !important;
+    border: none;
+    border-bottom: 1px solid #fff;
+    border-radius: 0;
+    color: #fff !important;
+    }
+
+.contact-form .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 1;
+}
+
+/* Pour mobile uniquement */
+@media (max-width: 767.98px) {
+    .contact-form .form-control,
+    .contact-form button {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+    }
+
+    .contact-form {
+        padding: 1rem !important; 
+    }
+
+    .contact-form .form-control {
+        margin-bottom: 0.5rem !important; 
+    }
+
+    .contact-form button {
+        margin-top: 1rem !important; 
+    }
+}

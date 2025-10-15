@@ -3,29 +3,72 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <title>{% block title %}{% endblock %}</title>
-
         <link rel="icon" type="image/x-icon" href="{{ asset('/images/logo/logo.png') }}">
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-
         <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
-
         <link href="https://fonts.googleapis.com/css2?family=Delius&family=PT+Sans+Narrow:wght@400;700&family=VT323&display=swap" rel="stylesheet">
-        
+
         {% block stylesheets %}
         {% endblock %}
-
         {% block javascripts %}
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-
     <body>
-        {% block body %}{% endblock %}
-         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+        {% block body %}
+        {% endblock %}
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha34I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js" integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y" crossorigin="anonymous"></script>
+
+        <!-- Footer -->
+        <footer class="d-none d-md-flex flex-column align-items-start py-3 text-black ms-5 me-5">
+            <!-- Logo + Nom -->
+            <div class="d-flex align-items-center mb-4">
+                <img src="{{ asset('/images/logo/logo.png') }}" alt="Logo Kodama's Kitchen" width="40" height="40" class="d-inline-block align-text-top me-2">
+                <h4 class="mb-0">KODAMA'S KITCHEN</h4>
+            </div>
+
+            <!-- Sections -->
+            <div class="d-flex flex-row justify-content-between w-100 mb-4">
+                <div class="d-flex flex-column me-5" style="max-width: 30%;">
+                    <h5 class="fw-bold">À propos</h5>
+                    <p class="fw-lighter lh-lg">Bienvenue chez Kodama's Kitchen, votre destination culinaire ultime. Nous sommes passionnés par la création de plats délicieux et innovants qui ravissent vos papilles.</p>
+                </div>
+                <div class="d-flex flex-column me-5">
+                    <h5 class="fw-bold">Contact</h5>
+                    <ul class="list-unstyled">
+                        <li class="my-2">Lun-Sam 12h-14h/ 19h-00h</li>
+                        <li class="mb-2">123 Rue de la Cuisine, Paris, France</li>
+                        <li><a href="tel: 06 12 34 56 78" class="mb-2 btn p-0">06 12 34 56 78</a></li>
+                        <li><a href="mailto: kodamaskitchen@gmail.com" class="mb-2 btn p-0">kodamaskitchen@gmail.com</a></li>
+                        <li>
+                            <a href="{{ path('app_contact') }}" class="btn p-0">Contactez-nous !</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="d-flex flex-column me-5">
+                    <h5 class="fw-bold">Suivez-nous</h5>
+                    <ul class="d-flex flex-column list-unstyled">
+                        <li class="me-3 my-2">
+                            <a href="#" class="btn p-0">Facebook</a>
+                        </li>
+                        <li class="me-3 mb-2">
+                            <a href="#" class="btn p-0">Twitter</a>
+                        </li>
+                        <li class="me-3">
+                            <a href="#" class="btn p-0">Instagram</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <!-- Image Totoro -->
+                    <img src="{{ asset('/images/uploads/footer/totoro.png') }}" alt="Image Totoro" style="max-width: 120px;">
+                </div>    
+            </div>
+        </footer>
+        <p class="d-none d-md-block text-center bg-dark text-white m-0 py-2">© 2025 Kodama's Kitchen. Tous droits réservés.</p>
     </body>
 </html>
