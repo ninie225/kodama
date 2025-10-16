@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{% block title %}Détails plat{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/details.css') }}">
+{% endblock %}
+{% block body %}
+<div class="details-page d-flex flex-column min-vh-100">
+    {% include 'navbar.html.twig' %}
+    <div class="container flex-grow-1 d-flex align-items-center mb-5">
+        <div class="row align-items-center w-100">
+            <!-- Colonne gauche : informations sur le plat -->
+            <div class="col-md-6 mb-4 mb-md-0">
+                <h1 class="display-1 text-shadow">{{ plat.nom }}</h1>
+                <h2>Film : {{ plat.film }}</h2>
+                <p class="">{{ plat.detail }}</p>
+                <h2>
+                    <strong>Prix :</strong>
+                    {{ plat.prix}} €
+                </h2>
+                <div class="d-flex align-items-center">
+                    <button class="btn text-white bg-black p-2 mt-3 rounded-pill">Ajouter au panier</button>
+                    <div class="d-flex flex-row align-items-center ms-3">           
+                        <button class="btn text-white bg-black p-2 mt-3 rounded-pill d-flex align-items-center justify-content-center quantity-btn" id="decrement">-</button>
+                        <p class="quantite fw-bold mb-0 mt-3 mx-2" id="quantity">0</p>
+                        <button class="btn text-white bg-black p-2 mt-3 rounded-pill d-flex align-items-center justify-content-center quantity-btn" id="increment">+</button>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Colonne droite : photo du plat -->
+            <div class="col-md-6 text-center">
+                <img src="{{ asset(plat.photo) }}" alt="{{ plat.nom }}" class="img-fluid rounded-5">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const decrementButton = document.getElementById('decrement');
+    const incrementButton = document.getElementById('increment');
+    const quantityElement = document.getElementById('quantity');
+
+    let quantity = 0;
+
+    decrementButton.addEventListener('click', () => {
+        if (quantity > 0) {
+            quantity--;
+            quantityElement.textContent = quantity;
+        }
+    });
+
+    incrementButton.addEventListener('click', () => {
+        quantity++;
+        quantityElement.textContent = quantity;
+    });
+</script>
+{% endblock %}

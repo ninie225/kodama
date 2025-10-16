@@ -13,4 +13,11 @@ body {
     color: #442B19 !important;
 }
 
+.accueil1, .accueil2, .carte, .contact-page, .details-page, .login-page {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    opacity: 0.9;
+}
 

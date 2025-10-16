@@ -2,8 +2,6 @@
 
 .carte{
     background-image: url("../images/uploads/carte/carte.jpg");
-    height: 100vh;
-    opacity: 0.9;
 }
 
 /* Style des boutons de catégorie */

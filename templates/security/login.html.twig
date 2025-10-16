@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+{% block title %}{% if is_logged_in %}Mon profil{% else %}Formulaire de connexion{% endif %}{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+{% endblock %}
+{% block body %}
+<div class="login-page d-flex flex-column">
+    {% include 'navbar.html.twig' %}
+    <div class="d-flex flex-column justify-content-start align-items-center text-center text-white px-3">
+        <h1 class="display-4 text-uppercase fw-bold">
+            {% if is_logged_in %}Mon profil{% else %}Formulaire de connexion{% endif %}
+        </h1>
+        <div class="container flex-grow-1 d-flex align-items-center mb-5">
+            <div class="row align-items-center w-100">
+                {# Si utilisateur connecté #}
+                {% if is_logged_in %}
+                    {# Affichage du profil utilisateur #}
+                    <form method="post" action="{{ path('app_profile_update') }}" class="bg-white text-black p-4 rounded-4 border border-light col-md-6 offset-md-3">
+                        <div class="d-flex justify-content-end mb-3">
+                            <a href="{{ path('app_logout') }}" class="btn btn-danger">Se déconnecter</a>
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputEmail" class="text-start d-block fw-bold">Email</label>
+                            <input type="email" value="{{ user.email }}" name="email" id="inputEmail" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputNom" class="text-start d-block fw-bold">Nom</label>
+                            <input type="text" value="{{ user.nom }}" name="nom" id="inputNom" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPrenom" class="text-start d-block fw-bold">Prénom</label>
+                            <input type="text" value="{{ user.prenom }}" name="prenom" id="inputPrenom" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputTelephone" class="text-start d-block fw-bold">Téléphone</label>
+                            <input type="text" value="{{ user.telephone }}" name="telephone" id="inputTelephone" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputAdresse" class="text-start d-block fw-bold">Adresse</label>
+                            <input type="text" value="{{ user.adresse }}" name="adresse" id="inputAdresse" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputCp" class="text-start d-block fw-bold">Code postal</label>
+                            <input type="text" value="{{ user.cp }}" name="cp" id="inputCp" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputVille" class="text-start d-block fw-bold">Ville</label>
+                            <input type="text" value="{{ user.ville }}" name="ville" id="inputVille" class="form-control">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPassword" class="text-start d-block fw-bold">Nouveau mot de passe (laisser vide pour ne pas changer)</label>
+                            <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Nouveau mot de passe">
+                        </div>
+                        <div class="mb-3">
+                            <label for="inputPasswordConfirm" class="text-start d-block fw-bold">Confirmer le nouveau mot de passe</label>
+                            <input type="password" name="password_confirm" id="inputPasswordConfirm" class="form-control" placeholder="Confirmer le nouveau mot de passe">
+                        </div>
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('update_profile') }}">
+                        <button type="submit" class="btn btn-lg rounded-5 mt-3 border border-success text-success">Mettre à jour</button>
+                    </form>
+                {% else %}
+                    {# Si utilisateur pas connecté : #}
+                    {# Affichage du formulaire de connexion #}
+                    <h1 class="h3 my-5 font-weight-normal">Connectez-vous</h1>
+                    <form method="post" class="bg-white text-black p-4 rounded-4 border border-light col-md-6 offset-md-3">
+                        {% if error %}
+                            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        {% endif %}
+                        <label for="inputEmail" class="text-start d-block fw-bold">Email</label>
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Entrez votre email">
+                        <label for="inputPassword" class="text-start d-block fw-bold mt-4">Mot de passe</label>
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="*********">
+                        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+                        <p class="text-start my-2">Mot de passe oublié ?</p>
+                        <button class="btn btn-lg rounded-5 mt-3 border border-success text-success" type="submit">
+                            Se connecter
+                        </button>
+                    </form>
+                    <p class="text-center fw-bold mt-3">Pas encore de compte ?</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

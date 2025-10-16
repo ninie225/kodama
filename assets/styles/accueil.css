@@ -1,59 +1,48 @@
 /* Styles communs à toutes les sections */
 .accueil1, .accueil2, .accueil3, .accueil4, .accueil5,
-.accueil6, .accueil7, .accueil8, .accueil9 {
+.accueil6, .accueil7, .accueil8 {
     position: relative;
-    width: 100%;
     perspective: 1500px;
     overflow: hidden;
+    opacity: 0.9;
+    min-height: 50vh;
 }
 
 /* Backgrounds des sections */
 .accueil1 {
     background-image: url("../images/uploads/accueil/accueil1.jpg");
-    height: 100vh;
     display: flex;
     flex-direction: column;
-    opacity: 0.9;
 }
 .accueil2 {
     background-image: url("../images/uploads/accueil/accueil2.jpg");
-    min-height: 100vh;
-    opacity: 0.9;
 }
 .accueil3 {
     background-image: url("../images/uploads/accueil/accueil3.jpg");
-    min-height: 50vh;
-    opacity: 0.9;
 }
 .accueil4 {
     background-image: url("../images/uploads/accueil/accueil4.jpg");
-    min-height: 50vh;
-    opacity: 0.9;
 }
 .accueil5 {
     background-image: url("../images/uploads/accueil/accueil5.webp");
-    min-height: 50vh;
-    opacity: 0.9;
 }
 .accueil6 {
     background-image: url("../images/uploads/accueil/accueil6.webp");
-    min-height: 50vh;
-    opacity: 0.9;
 }
 .accueil7 {
     background-image: url("../images/uploads/accueil/accueil7.png");
-    min-height: 50vh;
-    opacity: 0.9;
 }
 .accueil8 {
     background-image: url("../images/uploads/accueil/accueil8.jpg");
-    min-height: 50vh;
-    opacity: 0.9;
 }
 .accueil9 {
     background-image: url("../images/uploads/accueil/accueil9.jpg");
     min-height: 50vh;
     opacity: 0.8;
+    position: relative;
+    width: 100%;
+    perspective: 1500px;
+    overflow: hidden;
 }
 
 /* Propriétés communes des backgrounds */

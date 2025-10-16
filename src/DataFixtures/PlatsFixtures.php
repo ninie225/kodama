@@ -3,11 +3,20 @@
 namespace App\DataFixtures;
 
 use App\Entity\Plat;
+use App\Entity\Utilisateur;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PlatsFixtures extends Fixture
 {
+    private $hasher;
+
+    public function __construct(UserPasswordHasherInterface $hasher)
+    {
+        $this->hasher = $hasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
         $plat1 = new Plat();
@@ -99,6 +108,15 @@ class PlatsFixtures extends Fixture
         $plat10->setPhoto('images/uploads/carte/ragout.webp');
         $plat10->setCategorie('plat');
         $manager->persist($plat10);
+
+        $user= new Utilisateur();
+        $user->setEmail('toto@test.com');
+
+        $password_hash = $this->hasher->hashPassword($user, '1234');
+        $user->setPassword($password_hash);
+
+        $user->setRoles(['ROLE_ADMIN', 'ROLE_CLIENT']);
+        $manager->persist($user);
 
         $manager->flush();
     }

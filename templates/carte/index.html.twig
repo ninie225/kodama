@@ -26,45 +26,44 @@
                 {# Conteneur pour les cartes de plats #}
                 <div class="container">
                         <div class="row" id="plats-container">
-                                {% for plat in plats %}
-                                <div class="col-md-3 mb-4 plat-card" data-category="{{ plat.categorie }}">
-                                        <div class="card rounded-3">
-                                                <img src="{{ asset(plat.photo) }}" class="card-img-top rounded-3 p-1" alt="{{ plat.nom }}">
-                                                <div class="card-body">
-                                                        <h5 class="card-title fw-bold">{{ plat.nom }}</h5>
-                                                        <p class="card-text fw-bold text-white">{{ plat.prix }} €</p>
-                                                </div>
+                            {% for plat in plats %}
+                            <div class="col-md-3 mb-4">
+                                <a href="{{ path('app_details', {'id': plat.id}) }}" class="text-decoration-none text-reset d-block h-100">
+                                    <div class="card rounded-3 h-100 plat-card" data-category="{{ plat.categorie }}">
+                                        <img src="{{ asset(plat.photo) }}" class="card-img-top rounded-3 p-1" alt="{{ plat.nom }}">
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bold">{{ plat.nom }}</h5>
+                                            <p class="card-text fw-bold text-white">{{ plat.prix }} €</p>
                                         </div>
-                                </div>
-                                {% endfor %}
+                                    </div>
+                                </a>
+                            </div>
+                            {% endfor %}
                         </div>
                 </div>
-    </div>
+        </div>
 </div>
+
 <script>
 document.addEventListener('turbo:load', function() {
     const buttons = document.querySelectorAll('.btn-category');
-    const platCards = document.querySelectorAll('.plat-card');
+    const platContainers = document.querySelectorAll('#plats-container > .col-md-3'); 
 
-    // Fonction pour filtrer les plats par catégorie
     function filterPlats(category) {
-        platCards.forEach(card => {
+        platContainers.forEach(container => {
+            const card = container.querySelector('.plat-card');
             if (card.dataset.category === category) {
-                card.style.display = 'block';
+                container.style.display = 'block'; 
             } else {
-                card.style.display = 'none';
+                container.style.display = 'none';  
             }
         });
     }
 
-    // Au chargement de la page, afficher uniquement les entrées
+    // Au chargement, afficher uniquement les entrées
     filterPlats('entree');
 
-    // Activer le bouton "Entrées" par défaut
-    const entreeButton = document.querySelector('.btn-category[data-category="entree"]');
-    entreeButton.classList.add('active');
-
-    // Gestion des clics sur les boutons
+    // Gestion des boutons
     buttons.forEach(button => {
         button.addEventListener('click', function() {
             buttons.forEach(btn => btn.classList.remove('active'));
