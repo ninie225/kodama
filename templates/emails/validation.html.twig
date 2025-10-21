@@ -1,0 +1,13 @@
+<h2>Bienvenue sur notre site !</h2>
+<p>Merci pour votre inscription.</p>
+<p>
+    Pour valider votre compte, cliquez sur le lien ci-dessous :
+</p>
+<p>
+    <a href="{{ url('app_validation', {token: token}) }}">Valider mon compte</a>
+</p>
+<p>
+    Si le lien ne fonctionne pas, copiez et collez cette adresse dans votre navigateur :
+    <br>
+    {{ url('app_validation', {token: token}) }}
+</p>

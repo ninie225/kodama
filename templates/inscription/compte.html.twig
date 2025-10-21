@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Formulaire de création de compte{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="login-page d-flex flex-column">
+    {% include 'navbar.html.twig' %}
+    <div class="d-flex flex-column justify-content-start align-items-center text-center text-white px-3">
+        <h1 class="display-4 text-uppercase fw-bold">Formulaire de création de compte</h1>
+        <div class="container flex-grow-1 d-flex align-items-center">
+            <div class="row align-items-center w-100">
+                <h1 class="h3 my-5 font-weight-normal">Entrez votre adresse mail</h1>
+                <div class="mb-3 bg-white text-black p-4 my-3 rounded-4 border border-light col-md-6 offset-md-3">
+                    {{ form_start(form) }}
+                        <div class="mb-3">
+                            {{ form_label(form.email, 'Adresse e-mail', {'label_attr': {'class': 'text-start d-block fw-bold'}}) }}
+                            {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+                            {% for error in form.email.vars.errors %}
+                                <div class="alert alert-danger mt-2">{{ error.message }}</div>
+                            {% endfor %}
+                        </div>
+                        <button type="submit" class="btn btn-lg rounded-5 mt-3 border border-success text-success">
+                            Vérifier l'adresse mail
+                        </button>
+                    {{ form_end(form) }}
+                </div>
+                <a href="{{ path('app_login') }}" class="btn text-center fw-bold mt-3 link">Déjà un compte ? Se connecter</a>
+
+                {# Messages flash#}
+                {% for label, messages in app.flashes %}
+                    {% for message in messages %}
+                        <div class="col-12 my-2"> 
+                            <div class="alert alert-{{ label }} alert-dismissible fade show shadow" role="alert">
+                                {% if label == 'error' %}
+                                ⚠️
+                                {% else %}✓{% endif %}
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

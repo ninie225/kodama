@@ -7,9 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class LoginFormType extends AbstractType
+class InscriptionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -20,9 +19,8 @@ class LoginFormType extends AbstractType
                     'placeholder' => 'Entrez votre email',
                     'class' => 'form-control',
                 ],
-            ])
-            ->add('Envoyer', SubmitType::class)
-        ;
+                'error_bubbling' => false, 
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

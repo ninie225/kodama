@@ -16,13 +16,13 @@
                 {# Si utilisateur connecté #}
                 {% if is_logged_in %}
                     {# Affichage du profil utilisateur #}
-                    <form method="post" action="{{ path('app_profile_update') }}" class="bg-white text-black p-4 rounded-4 border border-light col-md-6 offset-md-3">
+                    <form method="post" action="{{ path('app_profile_update') }}" class="bg-white text-black p-5 my-3 rounded-4 border border-light col-md-6 offset-md-3">
                         <div class="d-flex justify-content-end mb-3">
-                            <a href="{{ path('app_logout') }}" class="btn btn-danger">Se déconnecter</a>
+                            <a href="{{ path('app_logout') }}" class="btn btn-outline-danger rounded-5">Se déconnecter</a>
                         </div>
                         <div class="mb-3">
                             <label for="inputEmail" class="text-start d-block fw-bold">Email</label>
-                            <input type="email" value="{{ user.email }}" name="email" id="inputEmail" class="form-control">
+                            <input type="email" value="{{ user.email }}" name="email" id="inputEmail" class="form-control" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="inputNom" class="text-start d-block fw-bold">Nom</label>
@@ -57,11 +57,10 @@
                             <input type="password" name="password_confirm" id="inputPasswordConfirm" class="form-control" placeholder="Confirmer le nouveau mot de passe">
                         </div>
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('update_profile') }}">
-                        <button type="submit" class="btn btn-lg rounded-5 mt-3 border border-success text-success">Mettre à jour</button>
+                        <button type="submit" class="btn btn-outline-success btn-lg rounded-5 mt-3">Mettre à jour</button>
                     </form>
                 {% else %}
-                    {# Si utilisateur pas connecté : #}
-                    {# Affichage du formulaire de connexion #}
+                    {# Affichage du formulaire de connexion si utilisateur pas connecté #}
                     <h1 class="h3 my-5 font-weight-normal">Connectez-vous</h1>
                     <form method="post" class="bg-white text-black p-4 rounded-4 border border-light col-md-6 offset-md-3">
                         {% if error %}
@@ -72,14 +71,30 @@
                         <label for="inputPassword" class="text-start d-block fw-bold mt-4">Mot de passe</label>
                         <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="*********">
                         <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
-                        <p class="text-start my-2">Mot de passe oublié ?</p>
-                        <button class="btn btn-lg rounded-5 mt-3 border border-success text-success" type="submit">
-                            Se connecter
-                        </button>
+                        <div class="text-start mt-2">
+                            <a href="{{ path('app_forgot_password_request') }}" class="btn p-0 m-0 link">Mot de passe oublié ?</a>
+                        </div>
+                        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+                        <div class="d-grid gap-2 col-6 mx-auto mt-3">
+                            <button class="btn btn-outline-success btn-lg rounded-5" type="submit">
+                                Se connecter
+                            </button>
+                        </div>
                     </form>
-                    <p class="text-center fw-bold mt-3">Pas encore de compte ?</p>
+                <a href="{{path('app_inscription')}}" class="btn text-center fw-bold mt-3 link">Pas encore de compte ?</a>
                 {% endif %}
             </div>
+        </div>
+        <div class="col-6">
+            {# Messages flash #}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="container my-4 alert alert-{{ label }} alert-gradient alert-dismissible fade show shadow" role="alert">
+                        <strong>✓</strong> {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endfor %}
         </div>
     </div>
 </div>

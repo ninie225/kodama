@@ -3,3 +3,13 @@
 .login-page {
     background-image: url("../images/uploads/login/login.jpg");
 }
+
+.link {
+    color: inherit;
+    transition: color 0.2s ease; 
+}
+
+.link:hover {
+    color: #442B19; 
+    border: none;
+}

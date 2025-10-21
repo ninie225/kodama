@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+{% block title %}Réinitialisation du mot de passe{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+{% endblock %}
+{% block body %}
+<div class="login-page d-flex flex-column">
+    {% include 'navbar.html.twig' %}
+    <div class="d-flex flex-column justify-content-start align-items-center text-center text-white px-3">
+        <h1 class="display-4 text-uppercase fw-bold">Réinitialisation du mot de passe</h1>
+        <div class="container flex-grow-1 d-flex align-items-center">
+            <div class="row align-items-center w-100">
+                <h1 class="h3 my-5 font-weight-normal">Choisissez un nouveau mot de passe</h1>
+                <div class="mb-3 bg-white text-black p-4 my-3 rounded-4 border border-light col-md-6 offset-md-3">
+                    {{ form_start(form) }}
+                        {{ form_errors(form) }}
+                        <div class="mb-3">
+                            {{ form_errors(form.password) }}
+                            {# Premier champ (mot de passe) #}
+                            {{ form_label(form.password.first) }}
+                            {{ form_widget(form.password.first) }}
+                            {{ form_errors(form.password.first) }}
+                            {# Second champ (confirmation) #}
+                            {{ form_label(form.password.second) }}
+                            {{ form_widget(form.password.second) }}
+                            {{ form_errors(form.password.second) }}
+                        </div>
+                        {{ form_widget(form.submit) }}
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
