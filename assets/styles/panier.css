@@ -1,0 +1,11 @@
+/*Style pour la page du panier */
+.panier-page {
+    background-image: url("../images/uploads/panier/panier.jpg");
+}
+
+.card-body img {
+    width: 80px; 
+    height: 80px; 
+    object-fit: cover; 
+    margin-right: 20px;
+}

@@ -13,7 +13,7 @@ body {
     color: #442B19 !important;
 }
 
-.accueil1, .accueil2, .carte, .contact-page, .details-page, .login-page {
+.accueil1, .accueil2, .carte-page, .contact-page, .details-page, .login-page, .panier-page {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

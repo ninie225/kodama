@@ -1,58 +1,108 @@
 {% extends 'base.html.twig' %}
-{% block title %}Détails plat{% endblock %}
+
+{% block title %}Détails du plat{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('styles/details.css') }}">
 {% endblock %}
+
 {% block body %}
 <div class="details-page d-flex flex-column min-vh-100">
     {% include 'navbar.html.twig' %}
+
     <div class="container flex-grow-1 d-flex align-items-center mb-5">
         <div class="row align-items-center w-100">
+
             <!-- Colonne gauche : informations sur le plat -->
             <div class="col-md-6 mb-4 mb-md-0">
                 <h1 class="display-1 text-shadow">{{ plat.nom }}</h1>
                 <h2>Film : {{ plat.film }}</h2>
-                <p class="">{{ plat.detail }}</p>
-                <h2>
-                    <strong>Prix :</strong>
-                    {{ plat.prix}} €
-                </h2>
-                <div class="d-flex align-items-center">
-                    <button class="btn text-white bg-black p-2 mt-3 rounded-pill">Ajouter au panier</button>
-                    <div class="d-flex flex-row align-items-center ms-3">           
-                        <button class="btn text-white bg-black p-2 mt-3 rounded-pill d-flex align-items-center justify-content-center quantity-btn" id="decrement">-</button>
-                        <p class="quantite fw-bold mb-0 mt-3 mx-2" id="quantity">0</p>
-                        <button class="btn text-white bg-black p-2 mt-3 rounded-pill d-flex align-items-center justify-content-center quantity-btn" id="increment">+</button>
+                <p>{{ plat.detail }}</p>
 
-                    </div>
+                <h2><strong>Prix :</strong> {{ plat.prix }} €</h2>
+
+                <!-- Zone quantité + bouton ajouter -->
+                <div class="d-flex align-items-center mt-4">
+                    <form action="{{ path('app_details', {'id': plat.id}) }}" method="post" class="d-flex align-items-center">
+                        <div class="d-flex flex-row align-items-center">
+                            <button type="button" class="btn text-white bg-black p-2 rounded-pill quantity-btn" id="decrement">-</button>
+                            <p class="quantite fw-bold mb-0 mx-3 fs-5" id="quantity">
+                                {{ quantityInCart|default(0) }}
+                            </p>
+                            <button type="button" class="btn text-white bg-black p-2 rounded-pill quantity-btn" id="increment">+</button>
+                        </div>
+
+                        <input type="hidden" name="quantity" id="quantityInput" value="{{ quantityInCart|default(0) }}">
+
+                        <button 
+                            type="submit" 
+                            id="addToCartBtn"
+                            class="btn text-white bg-black p-2 rounded-pill ms-3"
+                            {% if (quantityInCart|default(0)) == 0 %} disabled {% endif %}
+                        >
+                            Ajouter au panier
+                        </button>
+                    </form>
                 </div>
             </div>
+
             <!-- Colonne droite : photo du plat -->
             <div class="col-md-6 text-center">
-                <img src="{{ asset(plat.photo) }}" alt="{{ plat.nom }}" class="img-fluid rounded-5">
+                <img src="{{ asset(plat.photo) }}" alt="{{ plat.nom }}" class="img-fluid rounded-5 shadow-lg">
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    const decrementButton = document.getElementById('decrement');
-    const incrementButton = document.getElementById('increment');
-    const quantityElement = document.getElementById('quantity');
+(function() {
+    function init() {
+        const decrementButton = document.getElementById('decrement');
+        const incrementButton = document.getElementById('increment');
+        const quantityElement = document.getElementById('quantity');
+        const quantityInput = document.getElementById('quantityInput');
+        const addToCartBtn = document.getElementById('addToCartBtn');
 
-    let quantity = 0;
+        if (!decrementButton || !incrementButton) return;
 
-    decrementButton.addEventListener('click', () => {
-        if (quantity > 0) {
-            quantity--;
+        let quantity = Number(quantityElement.textContent.trim());
+        if (!Number.isFinite(quantity) || quantity < 0) quantity = 0;
+
+        function updateQuantityDisplay() {
             quantityElement.textContent = quantity;
-        }
-    });
+            quantityInput.value = quantity;
 
-    incrementButton.addEventListener('click', () => {
-        quantity++;
-        quantityElement.textContent = quantity;
-    });
+            if (quantity === 0) {
+                addToCartBtn.disabled = true;
+                addToCartBtn.classList.remove('bg-black');
+                addToCartBtn.classList.add('btn-secondary');
+            } else {
+                addToCartBtn.disabled = false;
+                addToCartBtn.classList.add('bg-black');
+                addToCartBtn.classList.remove('btn-secondary');
+            }
+        }
+
+        decrementButton.addEventListener('click', function() {
+            if (quantity > 0) {
+                quantity--;
+                updateQuantityDisplay();
+            }
+        });
+
+        incrementButton.addEventListener('click', function() {
+            quantity++;
+            updateQuantityDisplay();
+        });
+
+        updateQuantityDisplay();
+    }
+
+    // Fonctionne même avec navigation sans rechargement complet (Symfony UX Turbo)
+    document.addEventListener('turbo:load', init);
+    document.addEventListener('DOMContentLoaded', init);
+})();
 </script>
+
 {% endblock %}
