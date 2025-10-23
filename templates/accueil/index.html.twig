@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block body %}
+    {# Section 1  #}
     <div class="accueil1 d-flex flex-column">
         {% include 'navbar.html.twig' %}
         <div class="flex-grow-1 d-flex flex-column justify-content-center align-items-center text-center text-white px-3">
@@ -16,8 +17,10 @@
         </div>
     </div>
 
+    {# Section 2 avec card Miyazaki + effet) #}
     <div class="accueil2">
         <h3 class="display-md-3 fw-bold">QUI EST LE CHEF MIYAZAKI ?</h3>
+
         <div class="card rounded-5 overflow-hidden content-card">
             <div class="row g-0">
                 <div class="col-md-4">
@@ -38,157 +41,185 @@
         </div>
     </div>
 
-    <div class="accueil3 d-flex align-items-center">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-5 d-flex flex-column p-5 text-white">
-                    <h2 class="display-md-2 fw-bold shadow-text">1985</h2>
-                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Kodama's Kitchen est fondé.</p>
-                    <p class="fw-bold shadow-text">Hayao Miyazaki et Isao Takahata fondent officiellement le Studio Ghibli à Tokyo.</p>
-                </div>
-                <div class="col-md-7 p-5">
-                    <img src="{{ asset('images/uploads/accueil/accueil3-Miyazaki.jpg') }}" class="img-fluid rounded-4 shadow" alt="Photo de Miyazaki et Takahata">
+    {# Sections 3 à 9  #}
+    {% set sections = [
+        {
+            class: 'accueil3',
+            year: '1985',
+            subtitle: "Kodama's Kitchen est fondé.",
+            text: "Hayao Miyazaki et Isao Takahata fondent officiellement le Studio Ghibli à Tokyo.",
+            img: 'images/uploads/accueil/accueil3-Miyazaki.jpg',
+            alt: 'Photo de Miyazaki et Takahata'
+        },
+        {
+            class: 'accueil4',
+            year: '1986',
+            subtitle: "Ouverture du premier restaurant : le Château dans le ciel",
+            text: "La première sortie officielle de Ghibli a donné le ton pour des décennies de plats imaginatifs.",
+            img: 'images/uploads/accueil/accueil4-castle.jpg',
+            alt: 'Photo du Château dans le ciel'
+        },
+        {
+            class: 'accueil5',
+            year: '1988',
+            subtitle: "Sortie de Mon voisin Totoro",
+            text: "Totoro est devenu un icône culturel et la mascotte du restaurant.",
+            img: 'images/uploads/accueil/accueil5-totoro.jpg',
+            alt: 'Photo de Totoro'
+        },
+        {
+            class: 'accueil6',
+            year: '2001',
+            subtitle: "Ouverture de Kodama's Kitchen",
+            text: "Le restaurant Ghibli le plus iconique avec ses 4 étoiles Michelin.",
+            img: 'images/uploads/accueil/accueil6-restaurant.jpg',
+            alt: 'Photo du restaurant'
+        },
+        {
+            class: 'accueil7',
+            year: '2004',
+            subtitle: "Le château dans le ciel sort",
+            text: "Un chef-d'œuvre de fantasy steampunk qui a consolidé la renommée internationale de Ghibli.",
+            img: 'images/uploads/accueil/accueil7-castle.jpg',
+            alt: 'Photo du Château dans le ciel'
+        },
+        {
+            class: 'accueil8',
+            year: '2008',
+            subtitle: "Ponyo éclabousse la scène",
+            text: "Inspiré de la petite sirène, ce restaurant a charmé les convives avec ses beaux plats.",
+            img: 'images/uploads/accueil/accueil8-ponyo.webp',
+            alt: 'Photo de Ponyo'
+        },
+        {
+            class: 'accueil9',
+            year: '2020',
+            subtitle: "Les restaurants Ghibli dans le monde entier",
+            text: "La franchise Studio Ghibli est disponible dans plusieurs pays.",
+            img: 'images/uploads/accueil/accueil9-studio.jpg',
+            alt: 'Photo du studio Ghibli'
+        }
+    ] %}
+
+    {% for s in sections %}
+        <div class="{{ s.class }} parallax d-flex align-items-center">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-5 d-flex flex-column p-5 text-white">
+                        <h2 class="display-md-2 fw-bold shadow-text">{{ s.year }}</h2>
+                        <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">{{ s.subtitle }}</p>
+                        <p class="fw-bold shadow-text">{{ s.text }}</p>
+                    </div>
+                    <div class="col-md-7 p-5">
+                        <img src="{{ asset(s.img) }}" class="img-fluid rounded-4 shadow" alt="{{ s.alt }}">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    {% endfor %}
 
-    <div class="accueil4 d-flex align-items-center">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-5 d-flex flex-column p-5 text-white">
-                    <h2 class="display-md-2 fw-bold shadow-text">1986</h2>
-                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Ouverture du premier restaurant : le Château dans le ciel</p>
-                    <p class="fw-bold shadow-text">La première sortie officielle de Ghibli a donné le ton pour des décennies de plats imaginatifs.</p>
-                </div>
-                <div class="col-md-7 p-5">
-                    <img src="{{ asset('images/uploads/accueil/accueil4-castle.jpg') }}" class="img-fluid rounded-4 shadow" alt="Photo du Château dans le ciel">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="accueil5 d-flex align-items-center">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-5 d-flex flex-column p-5 text-white">
-                    <h2 class="display-md-2 fw-bold shadow-text">1988</h2>
-                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Sortie de Mon voisin Totoro</p>
-                    <p class="fw-bold shadow-text">Totoro est devenu un icône culturel et la mascotte du restaurant.</p>
-                </div>
-                <div class="col-md-7 p-5">
-                    <img src="{{ asset('images/uploads/accueil/accueil5-totoro.jpg') }}" class="img-fluid rounded-4 shadow" alt="Photo de Totoro">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="accueil6 d-flex align-items-center">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-5 d-flex flex-column p-5 text-white">
-                    <h2 class="display-md-2 fw-bold shadow-text">2001</h2>
-                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Ouverture de Kodama's Kitchen</p>
-                    <p class="fw-bold shadow-text">Le restaurant Ghibli le plus iconique avec ses 4 étoiles Michelin.</p>
-                </div>
-                <div class="col-md-7 p-5">
-                    <img src="{{ asset('images/uploads/accueil/accueil6-restaurant.jpg') }}" class="img-fluid rounded-4 shadow" alt="Photo du restaurant">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="accueil7 d-flex align-items-center">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-5 d-flex flex-column p-5 text-white">
-                    <h2 class="display-md-2 fw-bold shadow-text">2004</h2>
-                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Le château dans le ciel sort</p>
-                    <p class="fw-bold shadow-text">Un chef-d'œuvre de fantasy steampunk qui a consolidé la renommée internationale de Ghibli.</p>
-                </div>
-                <div class="col-md-7 p-5">
-                    <img src="{{ asset('images/uploads/accueil/accueil7-castle.jpg') }}" class="img-fluid rounded-4 shadow" alt="Photo du Château dans le ciel">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="accueil8 d-flex align-items-center">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-5 d-flex flex-column p-5 text-white">
-                    <h2 class="display-md-2 fw-bold shadow-text">2008</h2>
-                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Ponyo éclabousse la scène</p>
-                    <p class="fw-bold shadow-text">Inspiré de la petite sirène, ce restaurant a charmé les convives avec ses beaux plats.</p>
-                </div>
-                <div class="col-md-7 p-5">
-                    <img src="{{ asset('images/uploads/accueil/accueil8-ponyo.webp') }}" class="img-fluid rounded-4 shadow" alt="Photo de Ponyo">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="accueil9 d-flex align-items-center">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-5 d-flex flex-column p-5 text-white">
-                    <h2 class="display-md-2 fw-bold shadow-text">2020</h2>
-                    <p class="fw-bold text-uppercase shadow-text" style="color: #87CEFA;">Les restaurants Ghibli dans le monde entier</p>
-                    <p class="fw-bold shadow-text">La franchise Studio Ghibli est disponible dans plusieurs pays.</p>
-                </div>
-                <div class="col-md-7 p-5">
-                    <img src="{{ asset('images/uploads/accueil/accueil9-studio.jpg') }}" class="img-fluid rounded-4 shadow" alt="Photo du studio Ghibli">
-                </div>
-            </div>
-        </div>
-    </div>
-
+    {# JS  #}
     <script>
-        window.addEventListener("load", () => {
-        const card = document.querySelector(".accueil2 .card");
-        const title = document.querySelector(".accueil2 h3");
-        if (!card || !title) return;
+        (function () {
+        function inViewport(el, threshold = 0.5) {
+            if (!el) return false;
+            const r = el.getBoundingClientRect();
+            const area = r.width * r.height;
+            if (area === 0) return false;
+            const vh = window.innerHeight, vw = window.innerWidth;
+            const cx = Math.max(0, Math.min(r.right, vw) - Math.max(r.left, 0));
+            const cy = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+            const visibleArea = cx * cy;
+            return (visibleArea / area) >= threshold;
+        }
 
-        // Animation d'apparition
-        const observer = new IntersectionObserver((entries) => {
+        function initAccueil2Tilt() {
+            const card  = document.querySelector(".accueil2 .card");
+            const title = document.querySelector(".accueil2 h3");
+            if (!card || !title) return;
+
+            if (card.dataset.tiltInitialized === "1") return;
+            card.dataset.tiltInitialized = "1";
+
+            // Lancement de l’animation quand le titre est visible
+            const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    card.classList.add("animate-card");
-                    observer.unobserve(title);
+                card.classList.add("animate-card");
+                observer.disconnect();
                 }
             });
-        }, { threshold: 0.5 });
-        observer.observe(title);
+            }, { threshold: 0.5 });
+            observer.observe(title);
 
-        // Ajout de la classe allow-3d après l'animation
-        card.addEventListener("animationend", () => {
+            // À la fin de l’anim: libère transform et rends la 3D persistante
+            card.addEventListener("animationend", () => {
+            card.classList.remove("animate-card");
             card.classList.add("allow-3d");
-        });
+            card.style.opacity = "1";
+            card.style.transform = "translate(-50%, -50%) scale(1)";
+            });
+            
+            let shine = card.querySelector(".shine");
+            if (!shine) {
+            shine = document.createElement("div");
+            shine.className = "shine";
+            card.appendChild(shine);
+            }
 
-        // Effet 3D au survol
-        const maxRotation = 10;
+            // Effet mouvement carte
+            const maxRotation = 10;
+            let ticking = false, lastEvent = null;
 
-        card.addEventListener("mousemove", (e) => {
-            if (!card.classList.contains("allow-3d")) return;
+            function applyTilt(e) {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotationY = ((x - centerX) / centerX) * maxRotation;
-            const rotationX = ((y - centerY) / centerY) * maxRotation;
-            card.style.transition = "transform 0.1s ease-out";
-            card.style.transform = `translate(-50%, -50%) rotateY(${rotationY}deg) rotateX(${rotationX}deg) scale(1.05)`;
-        });
+            const cx = rect.width / 2;
+            const cy = rect.height / 2;
 
-        // Retour à la position initiale
-        card.addEventListener("mouseleave", () => {
+            const rotateY = ((x - cx) / cx) * maxRotation;
+            const rotateX = ((cy - y) / cy) * maxRotation;
+
+            card.style.transform = `translate(-50%, -50%) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+
+            const percentX = (x / rect.width) * 100;
+            const percentY = (y / rect.height) * 100;
+            shine.style.background =
+                `radial-gradient(circle at ${percentX}% ${percentY}%, rgba(255,255,255,0.4), transparent 60%)`;
+
+            ticking = false;
+            }
+
+            card.addEventListener("mousemove", (e) => {
             if (!card.classList.contains("allow-3d")) return;
-            card.style.transition = "transform 0.5s ease-out !important";
-            card.style.transform = "translate(-50%, -50%) rotateY(0) rotateX(0) scale(1) !important";
-        });
-    });
+            lastEvent = e;
+            if (!ticking) {
+                ticking = true;
+                requestAnimationFrame(() => applyTilt(lastEvent));
+            }
+            });
 
+            card.addEventListener("mouseleave", () => {
+            if (!card.classList.contains("allow-3d")) return;
+            card.style.transition = "transform 0.5s ease-out";
+            card.style.transform = "translate(-50%, -50%) rotateX(0) rotateY(0) scale(1)";
+            shine.style.background = "transparent";
+            setTimeout(() => (card.style.transition = "transform 0.08s ease-out"), 500);
+            });
+
+            // Si navigation interne / bfcache / Turbo
+            if (inViewport(title, 0.5)) {
+            card.classList.add("animate-card");
+            }
+        }
+
+        // Si avigation classique, bfcache, Turbo (Hotwire)
+        ["DOMContentLoaded", "load", "pageshow"].forEach(evt => {
+            window.addEventListener(evt, initAccueil2Tilt, { once: false });
+        });
+        document.addEventListener("turbo:load", initAccueil2Tilt);
+        })();
     </script>
 
 {% endblock %}

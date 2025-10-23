@@ -1,71 +1,60 @@
-/* Styles communs à toutes les sections */
+/* Page d'accueil */
+
 .accueil1, .accueil2, .accueil3, .accueil4, .accueil5,
-.accueil6, .accueil7, .accueil8 {
-    position: relative;
-    perspective: 1500px;
-    overflow: hidden;
-    opacity: 0.9;
-    min-height: 50vh;
-}
-
-/* Backgrounds des sections */
-.accueil1 {
-    background-image: url("../images/uploads/accueil/accueil1.jpg");
-    display: flex;
-    flex-direction: column;
-}
-.accueil2 {
-    background-image: url("../images/uploads/accueil/accueil2.jpg");
-}
-.accueil3 {
-    background-image: url("../images/uploads/accueil/accueil3.jpg");
-}
-.accueil4 {
-    background-image: url("../images/uploads/accueil/accueil4.jpg");
-}
-.accueil5 {
-    background-image: url("../images/uploads/accueil/accueil5.webp");
-}
-.accueil6 {
-    background-image: url("../images/uploads/accueil/accueil6.webp");
-}
-.accueil7 {
-    background-image: url("../images/uploads/accueil/accueil7.png");
-}
-.accueil8 {
-    background-image: url("../images/uploads/accueil/accueil8.jpg");
-}
-.accueil9 {
-    background-image: url("../images/uploads/accueil/accueil9.jpg");
-    min-height: 50vh;
-    opacity: 0.8;
-    position: relative;
-    width: 100%;
-    perspective: 1500px;
-    overflow: hidden;
-}
-
-/* Propriétés communes des backgrounds */
-.accueil2, .accueil3, .accueil4, .accueil5,
 .accueil6, .accueil7, .accueil8, .accueil9 {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Sections */
+.accueil1, .accueil2 {
+    min-height: 100vh !important;
+}
+
+.accueil3, .accueil4, .accueil5,
+.accueil6, .accueil7, .accueil8, .accueil9 {
+    min-height: 50vh;
+    opacity: 0.9;
+    perspective: 1500px;
+}
+
+/* Backgrounds */
+.accueil1 { background-image: url("../images/uploads/accueil/accueil1.jpg"); }
+.accueil2 { background-image: url("../images/uploads/accueil/accueil2.jpg"); }
+.accueil3 { background-image: url("../images/uploads/accueil/accueil3.jpg"); }
+.accueil4 { background-image: url("../images/uploads/accueil/accueil4.jpg"); }
+.accueil5 { background-image: url("../images/uploads/accueil/accueil5.webp"); }
+.accueil6 { background-image: url("../images/uploads/accueil/accueil6.webp"); }
+.accueil7 { background-image: url("../images/uploads/accueil/accueil7.png"); }
+.accueil8 { background-image: url("../images/uploads/accueil/accueil8.jpg"); }
+.accueil9 { background-image: url("../images/uploads/accueil/accueil9.jpg"); }
+
+/* Effet de parallaxe sur les sections 3 à 9 */
+.parallax {
+    background-attachment: fixed;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
-/* Effet d'ombre sur le texte */
+/* Effet d'ombre sur les textes */
 .shadow-text {
     text-shadow: 3px 2px 5px #000000;
     color: white;
 }
 
-/* Images de contenu (sections 3 à 8) */
+/* Images des sections 3 à 9 */
 .accueil3 .col-md-7 img,
 .accueil4 .col-md-7 img,
 .accueil5 .col-md-7 img,
 .accueil6 .col-md-7 img,
 .accueil7 .col-md-7 img,
-.accueil8 .col-md-7 img {
+.accueil8 .col-md-7 img,
+.accueil9 .col-md-7 img {
     width: 100%;
     height: auto;
     max-width: 500px;
@@ -75,7 +64,17 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
-/* Section 2 : Carte (taille adaptative mais disposition fixe) */
+/* SECTION 2 : Card Miyazaki*/
+
+/* Conteneur */
+.accueil2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1200px; 
+}
+
+/* Titre de la section 2 */
 .accueil2 h3 {
     position: absolute;
     top: 50%;
@@ -85,63 +84,87 @@
     margin: 0;
     text-align: center;
     width: 100%;
-    padding: 0 20px;
+    color: white;
     pointer-events: none;
 }
 
-.accueil2 .card {
+/* Card Miyazaki */
+.accueil2 .content-card {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.3);
+    transform-style: preserve-3d;
+    transform-origin: center;
     opacity: 0;
     width: 80%;
     max-width: 800px;
     min-width: 300px;
-    z-index: 10;
-    transform-style: preserve-3d;
-    transition: none;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2), 0 20px 40px rgba(0, 0, 0, 0.3), 0 30px 60px rgba(0, 0, 0, 0.2);
-    border-radius: 20px;
-    overflow: hidden;
-    color: #000000;
-    background: #92b7d1;
-    background: linear-gradient(0deg, rgba(146, 183, 209, 1) 0%, rgba(101, 131, 140, 1) 50%, rgba(34, 77, 31, 1) 100%);
+    z-index: 2;
+    transition: transform 0.15s ease-out, opacity 0.8s ease;
+    will-change: transform;
 }
 
+/* Apparition de la card Miyazaki */
 .accueil2 .card.animate-card {
-    animation: zoomIn 1s ease-out forwards;
+    animation: zoomInCard 1s ease-out forwards;
 }
 
-@keyframes zoomIn {
+@keyframes zoomInCard {
     to {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
     }
 }
 
+/* Effet 3D sur la card Miyazaki */
 .accueil2 .card.allow-3d {
-    transition: transform 0.1s ease-out !important;
+    opacity: 1;
+    transition: transform 0.08s ease-out;
+    backface-visibility: hidden;
+    will-change: transform;
 }
 
-/* Disposition fixe de la card (photo gauche, texte droite) */
+/* Reflet lumineux sur la card Miyazaki*/
+.accueil2 .shine {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: transparent;
+    mix-blend-mode: overlay;
+    border-radius: inherit;
+    transition: background 0.2s ease-out;
+}
+
+/* Card */
+.accueil2 .card {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.2),
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 30px 60px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(0deg, rgba(146,183,209,1) 0%, rgba(101,131,140,1) 50%, rgba(34,77,31,1) 100%);
+    color: #000;
+}
+
+/* Structure interne */
 .accueil2 .card .row {
     display: flex;
     flex-wrap: nowrap;
 }
 
 .accueil2 .card .col-md-4 {
-    flex: 0 0 35%; 
+    flex: 0 0 35%;
     max-width: 35%;
 }
 
 .accueil2 .card .col-md-8 {
-    flex: 0 0 65%; 
+    flex: 0 0 65%;
     max-width: 65%;
 }
 
-/* Styles spécifiques */
-/* Section 1 : Animation typewriter */
+/* SECTION 1 : Effet machine à écrire */
 .accueil1 .typewriter {
     overflow: hidden;
     white-space: nowrap;
@@ -149,37 +172,30 @@
     width: 0;
     animation: typing 4s steps(40, end) forwards;
 }
+
 @keyframes typing {
     from { width: 0; }
     to { width: 40ch; }
 }
+
 .accueil1 button:hover {
     color: #442B19 !important;
 }
 
-/* Responsive général (sauf pour la card) */
+/* Responsive */
 @media (max-width: 767.98px) {
-    .accueil1 h1 { 
-        font-size: 2rem; 
-    }
+    .accueil1 h1 { font-size: 2rem; }
+    .accueil1 p.lead { font-size: 1rem; }
+    .accueil1 button { font-size: 0.9rem; padding: 0.5rem 1rem; }
 
-    .accueil1 p.lead { 
-        font-size: 1rem; 
-    }
-    .accueil1 button { 
-        font-size: 0.9rem; padding: 0.5rem 1rem; 
-    }
-
-    .accueil2 h3 { 
-        font-size: 1.5rem; 
-    }
+    .accueil2 h3 { font-size: 1.5rem; }
 
     .accueil3 img, .accueil4 img, .accueil5 img,
-    .accueil6 img, .accueil7 img, .accueil8 img {
+    .accueil6 img, .accueil7 img, .accueil8 img, .accueil9 img {
         max-width: 100%;
         max-height: 250px;
     }
-    
+
     .accueil3 .row, .accueil4 .row, .accueil5 .row,
     .accueil6 .row, .accueil7 .row, .accueil8 .row,
     .accueil9 .row {
