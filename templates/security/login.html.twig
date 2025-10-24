@@ -89,7 +89,7 @@
             {# Messages flash #}
             {% for label, messages in app.flashes %}
                 {% for message in messages %}
-                    <div class="container my-4 alert alert-{{ label }} alert-gradient alert-dismissible fade show shadow" role="alert">
+                    <div class="container alert alert-{{ label }} alert-gradient alert-dismissible fade show shadow" role="alert">
                         <strong>✓</strong> {{ message }}
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>

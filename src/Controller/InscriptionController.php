@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Utilisateur;
 use App\Form\ValidationType;
 use App\Form\InscriptionType;
+use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UtilisateurRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -18,41 +19,38 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 final class InscriptionController extends AbstractController
 {
     #[Route('/inscription', name: 'app_inscription')]
-    public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $manager, UtilisateurRepository $repo): Response 
+    public function index(Request $request, MailerInterface $mailer, EntityManagerInterface $manager, UtilisateurRepository $repo, UserPasswordHasherInterface $hasher): Response
     {
         $utilisateur = new Utilisateur();
         $form = $this->createForm(InscriptionType::class, $utilisateur);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted()) {
             $existingUser = $repo->findOneBy(['email' => $utilisateur->getEmail()]);
-
             if ($existingUser) {
                 $this->addFlash('error', 'Un compte existe déjà avec cette adresse e-mail.');
                 return $this->redirectToRoute('app_inscription');
+            } else {
+                if ($form->isValid()) {
+                    $token = uniqid();
+                    $utilisateur->setRoles(['ROLE_CLIENT']);
+                    $utilisateur->setToken($token);
+                    $random = bin2hex(random_bytes(16));
+                    $utilisateur->setPassword($hasher->hashPassword($utilisateur, $random));
+                    $manager->persist($utilisateur);
+                    $manager->flush();
+                    // Envoi du mail de validation
+                    $email = (new TemplatedEmail())
+                        ->from('nepasrepondre@kodama.com')
+                        ->to($utilisateur->getEmail())
+                        ->subject('Validation de votre compte')
+                        ->htmlTemplate('emails/validation.html.twig')
+                        ->context(['token' => $token]);
+                    $mailer->send($email);
+                    $this->addFlash('success', 'Consultez votre boîte mail pour valider votre compte.');
+                    return $this->redirectToRoute('app_login');
+                }
             }
-
-            $token = uniqid();
-            $utilisateur->setRoles(['ROLE_CLIENT']);
-            $utilisateur->setToken($token);
-            $utilisateur->setPassword('provisoire'); 
-
-            $manager->persist($utilisateur);
-            $manager->flush();
-
-            // Envoi du mail de validation
-            $email = (new TemplatedEmail())
-                ->from('nepasrepondre@kodama.com')
-                ->to($utilisateur->getEmail())
-                ->subject('Validation de votre compte')
-                ->htmlTemplate('emails/validation.html.twig')
-                ->context(['token' => $token]);
-
-            $mailer->send($email);
-
-            $this->addFlash('success', 'Consultez votre boîte mail pour valider votre compte.');
-            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('inscription/compte.html.twig', [
@@ -60,11 +58,11 @@ final class InscriptionController extends AbstractController
         ]);
     }
 
+
     #[Route('/validation/{token}', name: 'app_validation')]
     public function validation(UserPasswordHasherInterface $hasher, UtilisateurRepository $repo, Request $request, EntityManagerInterface $manager, string $token): Response
     {
         $user = $repo->findOneBy(["token" => $token]);
-
         if (!$user) {
             throw $this->createNotFoundException('Utilisateur inconnu');
         }
@@ -72,16 +70,19 @@ final class InscriptionController extends AbstractController
         $form = $this->createForm(ValidationType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $pwd = $form->get('password')->getData();
-            $pwd_hash = $hasher->hashPassword($user, $pwd);
-            $user->setPassword($pwd_hash);
-            $user->setToken(null);
-
-            $manager->flush();
-
-            $this->addFlash('success', 'Votre compte est activé !');
-            return $this->redirectToRoute('app_login');
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $pwd = $form->get('password')->getData();
+                $pwd_hash = $hasher->hashPassword($user, $pwd);
+                $user->setPassword($pwd_hash);
+                $user->setToken(null);
+                $manager->flush();
+                $this->addFlash('success', 'Votre compte est activé !');
+                return $this->redirectToRoute('app_login');
+            } else {
+                $this->addFlash('error', 'Les mots de passe doivent être identiques et faire plus de 12 caractères.');
+                return $this->redirectToRoute('app_validation', ['token' => $token]);
+            }
         }
 
         return $this->render('inscription/validation.html.twig', [

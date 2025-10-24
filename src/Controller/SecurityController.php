@@ -126,21 +126,20 @@ class SecurityController extends AbstractController
         $form = $this->createForm(ValidationType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) 
+        if ($form->isSubmitted()) 
         {
-            $pwd = $form->get('password')->getData();
-            $pwd_hash = $hasher->hashPassword($user, $pwd);
-            $user->setPassword($pwd_hash);
-            $user->setToken(null);
-            $manager->flush();
-
-            $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès !');
-            return $this->redirectToRoute('app_login');
-        }
-        else {
-            foreach ($form->getErrors(true) as $error) {
-            dump($error->getMessage());
-            }
+            if ($form->isValid()) {
+                $pwd = $form->get('password')->getData();
+                $pwd_hash = $hasher->hashPassword($user, $pwd);
+                $user->setPassword($pwd_hash);
+                $user->setToken(null);
+                $manager->flush();
+                $this->addFlash('success', 'Votre mot de passe a été réinitialisé !');
+                return $this->redirectToRoute('app_login');
+            } else {
+                $this->addFlash('error', 'Les mots de passe doivent être identiques et faire plus de 12 caractères.');
+                return $this->redirectToRoute('app_reset_password', ['token' => $token]);
+            }   
         }
 
         return $this->render('security/reset_mdp.html.twig', [

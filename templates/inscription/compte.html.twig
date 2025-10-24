@@ -20,31 +20,20 @@
                         <div class="mb-3">
                             {{ form_label(form.email, 'Adresse e-mail', {'label_attr': {'class': 'text-start d-block fw-bold'}}) }}
                             {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
-                            {% for error in form.email.vars.errors %}
-                                <div class="alert alert-danger mt-2">{{ error.message }}</div>
-                            {% endfor %}
+                            {{ form_errors(form.email) }}
                         </div>
-                        <button type="submit" class="btn btn-lg rounded-5 mt-3 border border-success text-success">
+                        {# Message d'erreur #}
+                        {% for label, messages in app.flashes %}
+                            {% for message in messages %}
+                                <p class="text-danger mt-2">{{ message }}</p>
+                            {% endfor %}
+                        {% endfor %}
+                        <button type="submit" class="btn btn-lg rounded-5 mt-2 border border-success text-success">
                             Vérifier l'adresse mail
                         </button>
                     {{ form_end(form) }}
                 </div>
                 <a href="{{ path('app_login') }}" class="btn text-center fw-bold mt-3 link">Déjà un compte ? Se connecter</a>
-
-                {# Messages flash#}
-                {% for label, messages in app.flashes %}
-                    {% for message in messages %}
-                        <div class="col-12 my-2"> 
-                            <div class="alert alert-{{ label }} alert-dismissible fade show shadow" role="alert">
-                                {% if label == 'error' %}
-                                ⚠️
-                                {% else %}✓{% endif %}
-                                {{ message }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
             </div>
         </div>
     </div>

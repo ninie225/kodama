@@ -5,8 +5,10 @@ namespace App\Form;
 use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Validator\Constraints\Email as EmailAssert;
 
 class InscriptionType extends AbstractType
 {
@@ -18,8 +20,15 @@ class InscriptionType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Entrez votre email',
                     'class' => 'form-control',
+                    'autocomplete' => 'email',
+                    'inputmode'    => 'email',
+                ],
+                'constraints' => [
+                    new NotBlank(message: 'Veuillez saisir une adresse e-mail.'),
+                    new EmailAssert(message: 'Adresse e-mail invalide.', mode: EmailAssert::VALIDATION_MODE_STRICT),
                 ],
                 'error_bubbling' => false, 
+                'trim' => true,
             ]);
     }
 
