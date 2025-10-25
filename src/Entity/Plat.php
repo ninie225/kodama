@@ -18,6 +18,9 @@ class Plat
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+    #[ORM\Column(type: 'boolean')]
+    private bool $active = true;
+
     #[ORM\Column]
     private ?float $prix = null;
 
@@ -60,6 +63,18 @@ class Plat
 
         return $this;
     }
+
+    public function isActive(): bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): self
+    {
+        $this->active = $active;
+        return $this;
+    }
+
 
     public function getPrix(): ?float
     {

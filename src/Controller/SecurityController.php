@@ -20,14 +20,13 @@ class SecurityController extends AbstractController
     #[Route(path: '/login', name: 'app_login', methods: ['GET', 'POST'])]
     public function login(AuthenticationUtils $authenticationUtils, Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response 
     {
-        // Gestion de la mise à jour du profil
+        // Maj du profil
         if ($request->isMethod('POST') && $this->getUser()) {
             return $this->updateProfile($request, $entityManager, $passwordHasher);
         }
 
-        // Gestion de l'affichage
         $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
+        $lastUsername = '';
 
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,

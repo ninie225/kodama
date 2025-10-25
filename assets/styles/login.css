@@ -13,3 +13,10 @@
     color: #442B19; 
     border: none;
 }
+
+.dashboard-img {
+  width: 120px;       
+  height: 60px;        
+  object-fit: cover;  
+  object-position: center; 
+}

@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mes commandes{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="login-page d-flex flex-column">
+    {% include 'navbar.html.twig' %}
+    <div class="d-flex flex-column justify-content-start align-items-center text-center text-white px-3">
+        <h1 class="display-4 text-uppercase fw-bold mb-4">Historique de mes commandes</h1>
+
+        <div class="container flex-grow-1 d-flex align-items-center mb-5">
+            <div class="row align-items-center w-100">
+                <div class="bg-white text-black p-5 rounded-4 border border-light col-md-10 offset-md-1">
+
+                    {% if commandes|length > 0 %}
+                        <table class="table table-striped text-start align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Identifiant</th>
+                                    <th>Date</th>
+                                    <th>Total</th>
+                                    <th>État</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for commande in commandes %}
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('app_commande_client_detail', {'id': commande.id}) }}"
+                                               class="text-decoration-none fw-bold text-primary">
+                                                #{{ commande.id }}
+                                            </a>
+                                        </td>
+                                        <td>{{ commande.dateCommande|date('d/m/Y H:i') }}</td>
+                                        <td>{{ commande.total|number_format(2, ',', ' ') }} €</td>
+                                        <td>
+                                            {% if commande.etat == 0 %}
+                                                <span class="badge bg-secondary">Payée</span>
+                                            {% elseif commande.etat == 1 %}
+                                                <span class="badge bg-warning text-dark">En préparation</span>
+                                            {% elseif commande.etat == 2 %}
+                                                <span class="badge bg-info text-dark">En cours de livraison</span>
+                                            {% elseif commande.etat == 3 %}
+                                                <span class="badge bg-success">Livrée</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <p class="mt-4">Aucune commande passée pour le moment.</p>
+                    {% endif %}
+
+                    <div class="text-start mt-4">
+                        <a href="{{ path('app_login') }}" class="btn btn-outline-secondary rounded-5 px-4">
+                            ← Retour
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="login-page d-flex flex-column">
+    {% include 'navbar.html.twig' %}
+    <div class="d-flex flex-column justify-content-start align-items-center text-center text-white px-3">
+        <h1 class="display-4 text-uppercase fw-bold mb-4">Gestion des utilisateurs</h1>
+        <div class="container flex-grow-1 d-flex align-items-center mb-5">
+            <div class="row align-items-center w-100">
+                <div class="bg-white text-black p-5 rounded-4 border border-light col-md-10 offset-md-1">
+                    <table class="table table-striped table-hover text-start align-middle">
+                        <thead>
+                            <tr>
+                                <th>Email</th>
+                                <th>Nom</th>
+                                <th>Prénom</th>
+                                <th>Rôle</th>
+                                <th>Ville</th>
+                                <th>Téléphone</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in utilisateurs %}
+                                <tr>
+                                    <td>{{ user.email }}</td>
+                                    <td>{{ user.nom }}</td>
+                                    <td>{{ user.prenom }}</td>
+                                    <td>{{ user.roles|join(', ') }}</td>
+                                    <td>{{ user.ville }}</td>
+                                    <td>{{ user.telephone }}</td>
+                                    <td>
+                                        {% if user.id != app.user.id %}
+                                            <a href="{{ path('app_dashboard_utilisateur_supprimer', {'id': user.id}) }}"
+                                               class="btn btn-sm btn-outline-danger rounded-5"
+                                               onclick="return confirm('Supprimer cet utilisateur ?');">
+                                                Supprimer
+                                            </a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr><td colspan="7" class="text-center">Aucun utilisateur trouvé.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <div class="text-start mt-4">
+                        <a href="{{ path('app_login') }}" 
+                        class="btn btn-outline-secondary rounded-5 px-4">
+                            ← Retour
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

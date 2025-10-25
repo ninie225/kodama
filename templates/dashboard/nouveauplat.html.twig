@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un plat{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/login.css') }}">
+    <link rel="stylesheet" href="{{ asset('styles/nouveauplat.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="login-page d-flex flex-column">
+    {% include 'navbar.html.twig' %}
+
+    <div class="container py-5">
+
+        <div class="card bg-light mx-auto p-4" style="max-width: 800px;">
+            <div class="card-body">
+                <h1 class="card-title text-center text-uppercase fw-bold mb-4">Ajouter un nouveau plat</h1>
+
+                {{ form_start(form, {'attr': {'enctype': 'multipart/form-data', 'class': 'needs-validation'}, 'novalidate': 'novalidate'}) }}
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        {{ form_label(form.nom, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                        {{ form_widget(form.nom, {'attr': {'class': 'form-control', 'placeholder': 'Ex: Ramen Totoro'}}) }}
+                        {{ form_errors(form.nom) }}
+                    </div>
+
+                    <div class="col-md-6">
+                        {{ form_label(form.categorie, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                        {{ form_widget(form.categorie, {'attr': {'class': 'form-select'}}) }}
+                        {{ form_errors(form.categorie) }}
+                    </div>
+
+                    <div class="col-md-6">
+                        {{ form_label(form.prix, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                        {{ form_widget(form.prix, {'attr': {'class': 'form-control', 'placeholder': '12.90'}}) }}
+                        {{ form_errors(form.prix) }}
+                    </div>
+
+                    <div class="col-md-6">
+                        {{ form_label(form.film, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                        {{ form_widget(form.film, {'attr': {'class': 'form-control', 'placeholder': 'Le Voyage de Chihiro'}}) }}
+                        {{ form_errors(form.film) }}
+                    </div>
+
+                    <div class="col-12">
+                        {{ form_label(form.detail, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                        {{ form_widget(form.detail, {'attr': {'class': 'form-control', 'rows': 3, 'placeholder': 'Description du plat...'}}) }}
+                        {{ form_errors(form.detail) }}
+                    </div>
+
+                    <div class="col-12">
+                        {{ form_label(form.photo, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                        {{ form_widget(form.photo, {'attr': {'class': 'form-control', 'onchange': 'previewImage(event)'}}) }}
+                        {{ form_errors(form.photo) }}
+                        <img id="imagePreview" class="preview-img" alt="Prévisualisation">
+                    </div>
+
+                    <div class="col-12">
+                        {{ form_label(form.active, null, {'label_attr': {'class': 'form-label fw-bold'}}) }}
+                        {{ form_widget(form.active, {'attr': {'class': 'form-select'}}) }}
+                        {{ form_errors(form.active) }}
+                    </div>
+                </div>
+
+                <div class="text-center mt-4">
+                    <button type="submit" class="btn btn-success btn-lg px-5">
+                        Ajouter le plat
+                    </button>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{{ app.request.headers.get('referer') ?: path('app_dashboard') }}" 
+               class="btn btn-outline-light rounded-5 px-4">
+                ← Retour
+            </a>
+        </div>
+
+    </div>
+</div>
+
+{% block javascripts %}
+<script>
+    function previewImage(event) {
+        const input = event.target;
+        const file = input.files[0];
+        const preview = document.getElementById('imagePreview');
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = e => {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = '';
+            preview.style.display = 'none';
+        }
+    }
+</script>
+{% endblock %}
+{% endblock %}

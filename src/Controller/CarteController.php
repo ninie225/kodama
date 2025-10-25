@@ -12,7 +12,7 @@ final class CarteController extends AbstractController
     #[Route('/carte', name: 'app_carte')]
     public function index(PlatRepository $repo): Response
     {
-        $plats = $repo->findAll();
+        $plats = $repo->findBy(['active' => true]);
         return $this->render('carte/index.html.twig', [
             'plats' => $plats,
         ]);

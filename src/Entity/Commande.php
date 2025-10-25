@@ -24,14 +24,14 @@ class Commande
     /**
      * @var Collection<int, Detail>
      */
-    #[ORM\OneToMany(targetEntity: Detail::class, mappedBy: 'commande')]
+    #[ORM\OneToMany(targetEntity: Detail::class, mappedBy: 'commande', cascade: ['remove'], orphanRemoval: true)]
     private Collection $details;
 
     #[ORM\Column]
     private ?int $etat = null;
 
     #[ORM\ManyToOne(inversedBy: 'commandes')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Utilisateur $utilisateur = null;
 
     public function __construct()
