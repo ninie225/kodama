@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+{% block title %}Confirmation commande{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/panier.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="panier-page d-flex flex-column min-vh-100">
+    {% include 'navbar.html.twig' %}
+    <div class="container my-5">
+        <div class="card bg-white shadow-sm">
+            <div class="card-body p-4">
+                <h3 class="mb-3 text-success">Merci ! Votre commande a bien été enregistrée</h3>
+
+                <p>Numéro de commande : <strong>#{{ commande.id }}</strong></p>
+                <p>Date : {{ commande.dateCommande ? commande.dateCommande|date('d/m/Y H:i') : '' }}</p>
+
+                <h5 class="mt-4 mb-3">Détails</h5>
+                <ul class="list-group mb-4">
+                    {% for detail in commande.details %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>{{ detail.plat.nom }}</strong><br>
+                                <small class="text-muted">
+                                    {{ detail.quantite }} × {{ detail.plat.prix|number_format(2, ',', ' ') }} €
+                                </small>
+                            </div>
+                            <div class="fw-bold">
+                                {{ (detail.quantite * detail.plat.prix)|number_format(2, ',', ' ') }} €
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+
+                <div class="text-end">
+                    <p class="mb-1">Sous-total : <strong>{{ commande.total - 4 }} €</strong></p>
+                    <p class="mb-1">Frais de livraison : <strong>4,00 €</strong></p>
+                    <p class="fs-5 fw-bold">Total : {{ commande.total|number_format(2, ',', ' ') }} €</p>
+                </div>
+
+                <div class="mt-4 d-flex justify-content-center gap-2">
+                    <a href="{{ path('app_carte') }}" class="btn btn-outline-success rounded-pill px-4">Retour à la carte</a>
+                    <a href="{{ path('app_commandes_client') }}" class="btn btn-success rounded-pill px-4">Voir mes commandes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

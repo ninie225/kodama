@@ -1,55 +1,72 @@
 {% extends 'base.html.twig' %}
-{% block title %}Panier{% endblock %}
+
+{% block title %}Votre panier{% endblock %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('styles/panier.css') }}">
 {% endblock %}
+
 {% block body %}
 <div class="panier-page d-flex flex-column min-vh-100">
     {% include 'navbar.html.twig' %}
+
     <div class="container my-5 flex-grow-1">
         <h2 class="mb-4">Votre panier</h2>
+
         <div class="row g-4">
-            <!-- Carte des plats (gauche ou en haut sur mobile) -->
+
+            <!-- Liste des plats -->
             <div class="col-md-8 col-lg-8">
-                <div class="card bg-white h-100 shadow-sm">
+                <div class="card bg-white shadow-sm h-100">
                     <div class="card-body p-4">
+
                         {% if panier is empty %}
-                            <p class="text-center my-5">Votre panier est vide.</p>
+                            <div class="text-center my-5">
+                                <p class="fs-5 mb-4">Votre panier est vide.</p>
+                                <a href="{{ path('app_carte') }}" class="btn btn-outline-success rounded-pill px-4 py-2">
+                                    Continuer mon shopping
+                                </a>
+                            </div>
                         {% else %}
                             {% for item in panier %}
-                            <div class="d-flex align-items-center py-3 {% if not loop.last %}border-bottom{% endif %}">
-                                <img src="{{ asset(item.plat.photo) }}" alt="{{ item.plat.nom }}" class="rounded-2">
-                                <div class="flex-grow-1">
-                                    <h5 class="mb-1">{{ item.plat.nom }}</h5>
-                                    <p class="mb-0 text-muted"><strong>{{ item.plat.prix }} €</strong> (unité)</p>
+                                <div class="d-flex align-items-center py-3 {% if not loop.last %}border-bottom{% endif %}">
+                                    <img src="{{ asset(item.plat.photo) }}" alt="{{ item.plat.nom }}" class="rounded-2 me-3" style="width:80px; height:80px; object-fit:cover;">
+                                    <div class="flex-grow-1">
+                                        <h5 class="mb-1">{{ item.plat.nom }}</h5>
+                                        <p class="mb-0 text-muted"><strong>{{ item.plat.prix }} €</strong> (unité)</p>
+                                    </div>
+
+                                    <div class="d-flex align-items-center">
+                                        <a href="{{ path('app_del_panier', {'plat': item.plat.id}) }}" class="btn btn-sm btn-outline-success rounded-pill">-</a>
+                                        <span class="mx-2">{{ item.quantite }}</span>
+                                        <a href="{{ path('app_add_panier', {'plat': item.plat.id}) }}" class="btn btn-sm btn-outline-success rounded-pill">+</a>
+                                    </div>
+
+                                    <div class="ms-3 fw-bold text-end" style="min-width:80px;">
+                                        {{ (item.plat.prix * item.quantite) }} €
+                                    </div>
                                 </div>
-                                <div class="d-flex align-items-center">
-                                    <a href="{{ path('app_del_panier', {'plat': item.plat.id}) }}" class="btn btn-sm btn-outline-success rounded-pill">-</a>
-                                    <span class="mx-2">{{ item.quantite }}</span>
-                                    <a href="{{ path('app_add_panier', {'plat': item.plat.id}) }}" class="btn btn-sm btn-outline-success rounded-pill">+</a>
-                                </div>
-                                <div class="ms-3 fw-bold">
-                                    {{ (item.plat.prix * item.quantite) }} €
-                                </div>
-                            </div>
                             {% endfor %}
                         {% endif %}
                     </div>
                 </div>
             </div>
-            <!-- Carte récapitulatif (droite ou en bas sur mobile) -->
-            <div class="col-md-4 col-lg-4">
-                <div class="card bg-white h-100 shadow-sm">
-                    <div class="card-body p-4">
-                        {% if panier is not empty %}
+
+            <!-- Bloc récapitulatif si le panier n'est pas vide -->
+            {% if panier is not empty %}
+                <div class="col-md-4 col-lg-4">
+                    <div class="card bg-white shadow-sm h-100">
+                        <div class="card-body p-4">
                             <h5 class="mb-4">Récapitulatif</h5>
+
+                            {% set total = 0 %}
+                            {% for item in panier %}
+                                {% set sous_total = item.plat.prix * item.quantite %}
+                                {% set total = total + sous_total %}
+                            {% endfor %}
+
                             <ul class="list-group list-group-flush mb-4">
-                                {% set total = 0 %}
-                                {% for item in panier %}
-                                    {% set sous_total = item.plat.prix * item.quantite %}
-                                    {% set total = total + sous_total %}
-                                {% endfor %}
                                 <li class="list-group-item d-flex justify-content-between py-3">
                                     <span>Sous-total</span>
                                     <span>{{ total }} €</span>
@@ -63,12 +80,24 @@
                                     <span>{{ total + 4 }} €</span>
                                 </li>
                             </ul>
-                            <a href="#" class="btn btn-success w-100 py-2 rounded-pill">Valider ma commande</a>
-                        {% endif %}
-                        <a href="{{ path('app_carte') }}" class="btn btn-outline-secondary w-100 py-2 rounded-pill mt-3">Continuer mon shopping</a>
+
+                            {% if app.user %}
+                                <a href="{{ path('app_checkout_adresse') }}" class="btn btn-success w-100 py-2 rounded-pill">
+                                    Valider ma commande
+                                </a>
+                            {% else %}
+                                <a href="{{ path('app_login') }}" class="btn btn-success w-100 py-2 rounded-pill">
+                                    Se connecter pour valider
+                                </a>
+                            {% endif %}
+
+                            <a href="{{ path('app_carte') }}" class="btn btn-outline-secondary w-100 py-2 rounded-pill mt-3">
+                                Continuer mon shopping
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 </div>

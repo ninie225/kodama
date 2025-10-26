@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+{% block title %}Adresse de livraison{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/panier.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="panier-page d-flex flex-column min-vh-100">
+    {% include 'navbar.html.twig' %}
+    <div class="container my-5">
+        <h2 class="mb-4">Adresse de livraison</h2>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card bg-white shadow-sm">
+                    <div class="card-body p-4">
+                        {{ form_start(form) }}
+                            <div class="mb-3">
+                                {{ form_label(form.adresse) }}
+                                {{ form_widget(form.adresse, {'attr': {'class':'form-control'}}) }}
+                                {{ form_errors(form.adresse) }}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    {{ form_label(form.cp) }}
+                                    {{ form_widget(form.cp, {'attr': {'class':'form-control'}}) }}
+                                    {{ form_errors(form.cp) }}
+                                </div>
+                                <div class="col-md-8 mb-3">
+                                    {{ form_label(form.ville) }}
+                                    {{ form_widget(form.ville, {'attr': {'class':'form-control'}}) }}
+                                    {{ form_errors(form.ville) }}
+                                </div>
+                            </div>
+
+                            <div class="d-flex gap-2">
+                                <a href="{{ path('app_panier') }}" class="btn btn-outline-secondary">Retour au panier</a>
+                                <button type="submit" class="btn btn-success">Enregistrer l'adresse et continuer</button>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                {# Résumé de la commande #}
+                <div class="card bg-white shadow-sm">
+                    <div class="card-body">
+                        <h6>Information</h6>
+                        <p>Confirmez ou modifiez votre adresse. Après validation, vous serez redirigé vers la page de paiement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

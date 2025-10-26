@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+{% block title %}Paiement{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('styles/panier.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="panier-page d-flex flex-column min-vh-100">
+    {% include 'navbar.html.twig' %}
+    <div class="container my-5">
+        <h2 class="mb-4">Paiement</h2>
+
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card bg-white shadow-sm">
+                    <div class="card-body p-4">
+                        <form method="post">
+                            <h5 class="mb-3">Méthode de paiement</h5>
+
+                            <div class="mb-4">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="payment_method" id="pay_card" value="card" checked>
+                                    <label class="form-check-label" for="pay_card">Carte bancaire</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="payment_method" id="pay_paypal" value="paypal">
+                                    <label class="form-check-label" for="pay_paypal">PayPal (simulation)</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="payment_method" id="pay_cod" value="cod">
+                                    <label class="form-check-label" for="pay_cod">Paiement à la livraison</label>
+                                </div>
+                            </div>
+
+                            <div id="card-form" class="mb-4">
+                                <h6>Détails de la carte (simulation)</h6>
+                                <div class="mb-3">
+                                    <label class="form-label">Nom sur la carte</label>
+                                    <input type="text" name="card_name" class="form-control" placeholder="Nom Prénom">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Numéro de carte</label>
+                                    <input type="text" name="card_number" class="form-control" placeholder="1234 5678 9012 3456" maxlength="19">
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">Validité (MM/AA)</label>
+                                        <input type="text" name="card_exp" class="form-control" placeholder="04/26" maxlength="5">
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label class="form-label">CVV</label>
+                                        <input type="text" name="card_cvv" class="form-control" placeholder="123" maxlength="4">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="submitBtn" type="submit" class="btn btn-primary">
+                                Payer {{ (total + 4)|number_format(2, ',', ' ') }} €
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="card bg-white shadow-sm">
+                    <div class="card-body p-4">
+                        <h5 class="mb-3">Récapitulatif</h5>
+                        <ul class="list-group list-group-flush mb-3">
+                            {% for it in items %}
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>{{ it.plat.nom }} × {{ it.quantite }}</span>
+                                    <span>{{ (it.plat.prix * it.quantite) }} €</span>
+                                </li>
+                            {% endfor %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Sous-total</span>
+                                <strong>{{ total }} €</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Frais de livraison</span>
+                                <strong>4,00 €</strong>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between fw-bold">
+                                <span>Total</span>
+                                <strong>{{ total + 4 }} €</strong>
+                            </li>
+                        </ul>
+                        <small class="text-muted">Aucune donnée bancaire réelle n'est enregistrée.</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+(function(){
+    const radios = document.querySelectorAll('input[name="payment_method"]');
+    const cardForm = document.getElementById('card-form');
+    const submitBtn = document.getElementById('submitBtn');
+
+    function toggle() {
+        const value = document.querySelector('input[name="payment_method"]:checked').value;
+        if (value === 'card' || value === 'paypal') {
+            cardForm.style.display = (value === 'card') ? 'block' : 'none';
+            submitBtn.innerText = 'Payer {{ (total + 4)|number_format(2, ',', ' ') }} €';
+        } else {
+            cardForm.style.display = 'none';
+            submitBtn.innerText = 'Valider la commande';
+        }
+    }
+
+    radios.forEach(r => r.addEventListener('change', toggle));
+    toggle();
+})();
+</script>
+{% endblock %}

@@ -1,0 +1,53 @@
+<h3>Bonjour {{ user.nom }} {{user.prenom}},</h3>
+
+<p>Merci pour votre commande sur <strong>Kodama's Kitchen</strong> !</p>
+
+<p>Voici le récapitulatif de votre commande :</p>
+
+<table style="width:100%; border-collapse: collapse;">
+    <thead>
+        <tr style="background-color:#f2f2f2;">
+            <th align="left" style="padding:8px; border:1px solid #ddd;">Plat</th>
+            <th align="center" style="padding:8px; border:1px solid #ddd;">Quantité</th>
+            <th align="right" style="padding:8px; border:1px solid #ddd;">Sous-total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for it in items %}
+            <tr>
+                <td style="padding:8px; border:1px solid #ddd;">{{ it.plat.nom }}</td>
+                <td align="center" style="padding:8px; border:1px solid #ddd;">{{ it.quantite }}</td>
+                <td align="right" style="padding:8px; border:1px solid #ddd;">
+                    {{ (it.plat.prix * it.quantite)|number_format(2, ',', ' ') }} €
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="2" align="right" style="padding:8px; border:1px solid #ddd;">Frais de livraison</td>
+            <td align="right" style="padding:8px; border:1px solid #ddd;">4,00 €</td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right" style="padding:8px; border:1px solid #ddd; font-weight:bold;">Total</td>
+            <td align="right" style="padding:8px; border:1px solid #ddd; font-weight:bold;">
+                {{ total|number_format(2, ',', ' ') }} €
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<p style="margin-top:20px;">
+    Méthode de paiement : 
+    {% if payment_method == 'card' %}
+        Carte bancaire
+    {% elseif payment_method == 'paypal' %}
+        PayPal (simulation)
+    {% else %}
+        Paiement à la livraison
+    {% endif %}
+</p>
+
+<p>Votre commande n° <strong>{{ commande.id }}</strong> a été enregistrée le 
+{{ commande.dateCommande ? commande.dateCommande|date('d/m/Y H:i') : '' }}.</p>
+
+<p>Merci pour votre confiance ! <br>
+L’équipe de Kodama’s Kitchen</p>
