@@ -44,7 +44,6 @@
 /* Effet d'ombre sur les textes */
 .shadow-text {
     text-shadow: 3px 2px 5px #000000;
-    color: white;
 }
 
 /* Images des sections 3 à 9 */
@@ -62,6 +61,24 @@
     object-fit: cover;
     border-radius: 0.5rem;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* SECTION 1 */
+
+.accueil1 .fixed-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    max-width: 900px;
+    z-index: 2;
+    text-align: center;
+    pointer-events: none;
+}
+
+.accueil1 .fixed-center * {
+    pointer-events: auto;
 }
 
 /* SECTION 2 : Card Miyazaki*/
@@ -183,7 +200,7 @@
 }
 
 /* Responsive */
-@media (max-width: 767.98px) {
+@media (max-width: 768px) {
     .accueil1 h1 { font-size: 2rem; }
     .accueil1 p.lead { font-size: 1rem; }
     .accueil1 button { font-size: 0.9rem; padding: 0.5rem 1rem; }
