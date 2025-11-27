@@ -1,0 +1,8 @@
+/* Style pour la page erreur */
+
+.error-page {
+    background-image: url("../images/uploads/error.jpg");
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+}

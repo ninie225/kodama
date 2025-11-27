@@ -45,34 +45,34 @@
 </div>
 
 <script>
-document.addEventListener('turbo:load', function() {
-    const buttons = document.querySelectorAll('.btn-category');
-    const platContainers = document.querySelectorAll('#plats-container > .col-md-3'); 
+    document.addEventListener('turbo:load', function() {
+        const buttons = document.querySelectorAll('.btn-category');
+        const platContainers = document.querySelectorAll('#plats-container > .col-md-3'); 
 
-    function filterPlats(category) {
-        platContainers.forEach(container => {
-            const card = container.querySelector('.plat-card');
-            if (card.dataset.category === category) {
-                container.style.display = 'block'; 
-            } else {
-                container.style.display = 'none';  
-            }
-        });
-    }
+        function filterPlats(category) {
+            platContainers.forEach(container => {
+                const card = container.querySelector('.plat-card');
+                if (card.dataset.category === category) {
+                    container.style.display = 'block'; 
+                } else {
+                    container.style.display = 'none';  
+                }
+            });
+        }
 
-    // Au chargement, afficher uniquement les entrées
-    filterPlats('entree');
+        // Au chargement, afficher uniquement les entrées
+        filterPlats('entree');
 
-    // Gestion des boutons
-    buttons.forEach(button => {
-        button.addEventListener('click', function() {
-            buttons.forEach(btn => btn.classList.remove('active'));
-            this.classList.add('active');
-            const category = this.dataset.category;
-            filterPlats(category);
+        // Gestion des boutons
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                buttons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                const category = this.dataset.category;
+                filterPlats(category);
+            });
         });
     });
-});
 </script>
 
 {% endblock %}
