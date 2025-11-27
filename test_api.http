@@ -1,0 +1,7 @@
+GET https://127.0.0.1:8000/api/plats
+Accept: application/json
+
+###
+
+GET https://127.0.0.1:8000/api/commandes
+Accept: application/json
