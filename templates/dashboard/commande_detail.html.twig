@@ -31,41 +31,41 @@
                 </ul>
 
                 <h3 class="fw-bold mb-3">Plats commandés</h3>
-
-                <table class="table table-striped table-hover text-start align-middle">
-                    <thead>
-                        <tr>
-                            <th>Photo</th>
-                            <th>Nom</th>
-                            <th>Quantité</th>
-                            <th>Prix unitaire (€)</th>
-                            <th>Sous-total (€)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for detail in commande.details %}
-                            {% set plat = detail.plat %}
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover text-start align-middle">
+                        <thead>
                             <tr>
-                                <td>
-                                    <a href="{{ path('app_details', {'id': plat.id}) }}">
-                                        <img src="{{ asset(plat.photo) }}" 
-                                            alt="{{ plat.nom }}"
-                                            class="img-fluid object-fit-cover rounded-3 shadow-sm dashboard-img">
-                                    </a>
-                                </td>
-                                <td>{{ plat.nom|capitalize }}</td>
-                                <td>{{ detail.quantite }}</td>
-                                <td>{{ plat.prix|number_format(2, ',', ' ') }}</td>
-                                <td>{{ (plat.prix * detail.quantite)|number_format(2, ',', ' ') }}</td>
+                                <th>Photo</th>
+                                <th>Nom</th>
+                                <th>Quantité</th>
+                                <th>Prix unitaire (€)</th>
+                                <th>Sous-total (€)</th>
                             </tr>
-                        {% else %}
-                            <tr>
-                                <td colspan="5" class="text-center">Aucun plat dans cette commande.</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-
+                        </thead>
+                        <tbody>
+                            {% for detail in commande.details %}
+                                {% set plat = detail.plat %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ path('app_details', {'id': plat.id}) }}">
+                                            <img src="{{ asset(plat.photo) }}" 
+                                                alt="{{ plat.nom }}"
+                                                class="img-fluid object-fit-cover rounded-3 shadow-sm dashboard-img">
+                                        </a>
+                                    </td>
+                                    <td>{{ plat.nom|capitalize }}</td>
+                                    <td>{{ detail.quantite }}</td>
+                                    <td>{{ plat.prix|number_format(2, ',', ' ') }}</td>
+                                    <td>{{ (plat.prix * detail.quantite)|number_format(2, ',', ' ') }}</td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center">Aucun plat dans cette commande.</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
                 <div class="d-flex justify-content-end align-items-center mt-4 gap-4">
                     <!-- Statut de la commande -->
                     {% set etat = commande.etat %}

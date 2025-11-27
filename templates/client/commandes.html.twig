@@ -17,6 +17,7 @@
                 <div class="bg-white text-black p-5 rounded-4 border border-light col-md-10 offset-md-1">
 
                     {% if commandes|length > 0 %}
+                    <div class="table-responsive">
                         <table class="table table-striped text-start align-middle">
                             <thead class="table-light">
                                 <tr>
@@ -52,6 +53,7 @@
                                 {% endfor %}
                             </tbody>
                         </table>
+                    </div>
                     {% else %}
                         <p class="mt-4">Aucune commande passée pour le moment.</p>
                     {% endif %}
