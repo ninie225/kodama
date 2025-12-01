@@ -93,7 +93,7 @@ class SecurityController extends AbstractController
                 $manager->flush();
 
                 $email = (new TemplatedEmail())
-                    ->from('nepasrepondre@kodama.com')
+                    ->from('kodamaskitchen@gmail.com')
                     ->to($user->getEmail())
                     ->subject('Réinitialisation de votre mot de passe')
                     ->htmlTemplate('emails/forgot_password.html.twig')

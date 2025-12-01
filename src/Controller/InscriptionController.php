@@ -41,7 +41,7 @@ final class InscriptionController extends AbstractController
                     $manager->flush();
                     // Envoi du mail de validation
                     $email = (new TemplatedEmail())
-                        ->from('nepasrepondre@kodama.com')
+                        ->from('kodamaskitchen@gmail.com')
                         ->to($utilisateur->getEmail())
                         ->subject('Validation de votre compte')
                         ->htmlTemplate('emails/validation.html.twig')

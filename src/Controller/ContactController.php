@@ -30,7 +30,7 @@ final class ContactController extends AbstractController
 
             $mail=(new Email())
                 ->from($email)
-                ->to('nepasrepondre@kodama.com')
+                ->to('kodamaskitchen@gmail.com')
                 ->subject($objet)
                 ->html('Message de : '.$email.' Téléphone : '.$phone.' Message : '.$msg);
 

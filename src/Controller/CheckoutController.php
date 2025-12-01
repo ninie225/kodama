@@ -140,7 +140,7 @@ class CheckoutController extends AbstractController
 
             // Envoi email confirmation
             $email = (new TemplatedEmail())
-                ->from(new Address('no-reply@kodama.com', 'Kodama\'s Kitchen'))
+                ->from(new Address('kodamaskitchen@gmail.com', 'Kodama\'s Kitchen'))
                 ->to($user->getEmail())
                 ->subject('Confirmation de votre commande #' . $commande->getId())
                 ->htmlTemplate('emails/commande_confirmation.html.twig')
