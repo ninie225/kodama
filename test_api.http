@@ -1,7 +1,23 @@
-GET https://127.0.0.1:8000/api/plats
-Accept: application/json
+GET https://127.0.0.1:8000/api/login_check
+Content-Type: application/json
+
+{
+    "username" : "client1@test.com",
+    "password" : "1234"
+
+}
 
 ###
 
-GET https://127.0.0.1:8000/api/commandes
+GET http://127.0.0.1:8000/api/commandes
 Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NjUzODAxOTcsImV4cCI6MTc2NTM4Mzc5Nywicm9sZXMiOlsiUk9MRV9DTElFTlQiLCJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJjbGllbnQxQHRlc3QuY29tIn0.NmJ78HZL4sSEl71VMQ-IErT-sj93LVASpx2nLB2oveXpwZbzPtshUEB7174NT-IQimoQXRQv8mIdGLPID_LU3v5Smw_BACusgYpd3gn74cKQUSvXEUlQw7qCnHE3m2cfKa5jM4-deY3hYNKgElYmCEVfWVX52Qp6LNI9zFg0h7mYKki-2JwCQUODjjyYiOvBaTxS81-utlIkIPphGdL2hvlUN-ODsr7luHWrFiZkWV4PRg3OW_6bdzGKCGyftfQx988FFjP_0tp3liVC7h2j--pYr-DkIyVHZWHiFjTw-zkNYuhg-tV_ynlohcpbysUCa_T5GY__nR7WgSjb8oIxwA
+
+
+
+
+###
+
+GET http://127.0.0.1:8000/api/details
+Accept: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE3NjUzODAxOTcsImV4cCI6MTc2NTM4Mzc5Nywicm9sZXMiOlsiUk9MRV9DTElFTlQiLCJST0xFX1VTRVIiXSwidXNlcm5hbWUiOiJjbGllbnQxQHRlc3QuY29tIn0.NmJ78HZL4sSEl71VMQ-IErT-sj93LVASpx2nLB2oveXpwZbzPtshUEB7174NT-IQimoQXRQv8mIdGLPID_LU3v5Smw_BACusgYpd3gn74cKQUSvXEUlQw7qCnHE3m2cfKa5jM4-deY3hYNKgElYmCEVfWVX52Qp6LNI9zFg0h7mYKki-2JwCQUODjjyYiOvBaTxS81-utlIkIPphGdL2hvlUN-ODsr7luHWrFiZkWV4PRg3OW_6bdzGKCGyftfQx988FFjP_0tp3liVC7h2j--pYr-DkIyVHZWHiFjTw-zkNYuhg-tV_ynlohcpbysUCa_T5GY__nR7WgSjb8oIxwA
